@@ -24,13 +24,14 @@ class GestorVentanas {
   public:
     std::string codigo;
     std::string contrasena;
+    std::string nombre;
     bool exit=false;
 
     void iniciar();
     void cambiar_ventana(Ventanas nueva_ventana);
     void terminar_programa();
   private:
-    Ventanas ventana_actual=Ventanas::USERMAIN;
+    Ventanas ventana_actual=Ventanas::MAINWINDOW;
 
     //CREAR UN OBJETO DE CADA VENTANA
     MainWindow* main_window;
