@@ -4,10 +4,12 @@
 #include <conio.h>
 #include <stdlib.h>
 #include "functions.h"
+#include "VerificarUsuario.h"
 
 using namespace std;
 
 void UserLogin::mostrar(){
+  show_cursor();
   system("cls");
   rectangle(46, 20, 30, 5);
   gotoxy(37,8);
@@ -55,13 +57,16 @@ void UserLogin::ingresar_credenciales(GestorVentanas& gestor){
 
 void UserLogin::validar_credenciales(GestorVentanas& gestor){
   system("cls");
-  gotoxy(0,0);
-  if(gestor.codigo=="admin" && gestor.contrasena=="admin"){
-    gestor.cambiar_ventana(Ventanas::USERMAIN);
-  } else {
-    cout<<"CREDENCIALES INCORRECTAS";
-    getch();
-  } 
+  int verificacion = VerificarUsuario(gestor.codigo, gestor.contrasena);
+  switch (verificacion){
+    case 1:
+      cout<<"Ingreso";
+      break;
+    case 0:
+      cout<<"ERROr";
+      break;
+  }
+  getch();
 }
 
 void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
