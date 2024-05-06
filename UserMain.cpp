@@ -161,13 +161,16 @@ void UserMain::seleccionar_opcion(GestorVentanas& gestor){
 
   switch(opc){
     case 1:
+      gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
       break;
     case 2:
+      
       break;
     case 3:
+      gestor.cambiar_ventana(Ventanas::RESERVASHECHAS);
       break;
     case 4:
-      gestor.terminar_programa();
+      gestor.cambiar_ventana(Ventanas::MAINWINDOW);
       break;
   }
 }
