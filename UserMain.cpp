@@ -3,12 +3,14 @@
 #include "functions.h"
 #include <iostream>
 #include <conio.h>
+#include <cstdlib>
 
 void UserMain::mostrar(GestorVentanas& gestor){
+  system("cls");
   hide_cursor();
   rectangle(60, 20, 20, 5);
   gotoxy(22, 6);
-  cout<<"BIENVENIDO "<<gestor.codigo;
+  cout<<"BIENVENIDO "<<gestor.nombre;
   gotoxy(36, 8);
   cout<<"ESCOGE QUE DESEAS REALIZAR:";
 }
