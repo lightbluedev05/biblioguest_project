@@ -5,6 +5,7 @@
 #include <conio.h>
 
 void UserMain::mostrar(GestorVentanas& gestor){
+  hide_cursor();
   rectangle(60, 20, 20, 5);
   gotoxy(22, 6);
   cout<<"BIENVENIDO "<<gestor.codigo;
