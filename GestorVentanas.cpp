@@ -1,8 +1,10 @@
 #include "GestorVentanas.h"
+#include "functions.h"
 #include <iostream>
 
 
 void GestorVentanas::iniciar(){
+  hide_cursor();
   while(!GestorVentanas::exit){
     switch(ventana_actual){
 
