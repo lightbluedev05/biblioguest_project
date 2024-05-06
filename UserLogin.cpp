@@ -57,16 +57,15 @@ void UserLogin::ingresar_credenciales(GestorVentanas& gestor){
 
 void UserLogin::validar_credenciales(GestorVentanas& gestor){
   system("cls");
-  int verificacion = VerificarUsuario(gestor.codigo, gestor.contrasena);
+  int verificacion = VerificarUsuario(gestor.codigo, gestor.contrasena, gestor);
   switch (verificacion){
     case 1:
-      cout<<"Ingreso";
+      gestor.cambiar_ventana(Ventanas::USERMAIN);
       break;
     case 0:
-      cout<<"ERROr";
+      cout<<"error";
       break;
   }
-  getch();
 }
 
 void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
