@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <conio.h>
+#include "GestorVentanas.h"
 
 using namespace std;
 
@@ -72,69 +73,68 @@ void escribir(string n){
 }
 
 
-int VerificarUsuario(string cod_ingresado, string contra_ingresado) {
+int VerificarUsuario(string cod_ingresado, string contra_ingresado, GestorVentanas& gestor) {
 	vector<User> users;
 
-    ifstream archivo("datos.txt");
+  ifstream archivo("datos.txt");
 
-    string line;
-    while (getline(archivo, line)) {
-        istringstream iss(line);
-        User u;
-        iss >> u.cod >> u.contra;
+	string line;
 
-        getline(iss, u.nombre);
+	while (getline(archivo, line)) {
+		istringstream iss(line);
+		User u;
+		iss >> u.cod >> u.contra;
 
-        users.push_back(u);
-    }
-    archivo.close();
+		getline(iss, u.nombre);
+
+		users.push_back(u);
+	}
+	archivo.close();
     
 
-    int aux;
-    int aux2=1;
-    bool ingresa = false;
+	int aux;
+	int aux2=1;
 
-	
-    if (verificar(cod_ingresado, contra_ingresado, users)) {
-    	for (int i = 0; i < users.size(); ++i){
+  if (verificar(cod_ingresado, contra_ingresado, users)) {
+    for (int i = 0; i < users.size(); ++i){
 			if (users[i].cod == cod_ingresado) {
-			    aux = i;
+				aux = i;
 			}
 		}
 		
-		escribir(users[aux].nombre);
-		
-        aux2=1;
-        ingresa = true;
-    } else {
-    	if (verificarnuevo(cod_ingresado, users)){
-    		for (int i = 0; i < users.size(); ++i){
-			    if (users[i].cod == cod_ingresado) {
-			            aux = i;
-			    }
+			aux2=1;
+
+			gestor.nombre = users[aux].nombre;
+	
+	} else {
+		if (verificarnuevo(cod_ingresado, users)){
+			for (int i = 0; i < users.size(); ++i){
+				if (users[i].cod == cod_ingresado) {
+					aux = i;
+				}
 			}
-			
+		
 			users[aux].contra = contra_ingresado;
 			
 			guardardatos(users);
 			
 			cout <<"\n\tCUENTA CREADA";
+			gestor.nombre = users[aux].nombre;
+
 			aux2=1;
-			
-			ingresa = true;
-		}else{
+			getch();
+		} else {
 			if (vericarmatricula(cod_ingresado, users)){
 				cout << "\n\tCREDENCIALES INCORRECTAS" << endl;
 				aux2=0;
-				
-			}
-			else{
+				getch();
+			} else {
 				cout << "\n\tNO ESTA MATRICULADO" << endl;
 				aux2=0;
-				
+				getch();
 			}
 		}
-    }
+	}
 
-    return aux2;
+	return aux2;
 }
