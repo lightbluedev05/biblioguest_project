@@ -5,6 +5,7 @@
 #include <vector>
 #include <conio.h>
 #include "GestorVentanas.h"
+#include "functions.h"
 
 using namespace std;
 

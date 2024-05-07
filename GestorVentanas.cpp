@@ -7,7 +7,6 @@ void GestorVentanas::iniciar(){
   hide_cursor();
   while(!GestorVentanas::exit){
     switch(ventana_actual){
-
       //AGREGAR CADA CASO DE VENTANA
       case Ventanas::MAINWINDOW:
         main_window->main(*this);
