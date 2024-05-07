@@ -28,14 +28,14 @@ void UserMain::seleccionar_opcion(GestorVentanas& gestor){
 
     switch(opc){
 			case 1: 
-				change_color(15,22);
+				change_color(15);
 				gotoxy(37, 10);
         cout<<"+-----------------------+";
         gotoxy(37, 11);
         cout<<"|        Laptops        |";
         gotoxy(37, 12);
         cout<<"+-----------------------+";
-        change_color(15,0);
+        change_color(15);
 
         gotoxy(37, 14);
         cout<<"+-----------------------+";
@@ -67,14 +67,14 @@ void UserMain::seleccionar_opcion(GestorVentanas& gestor){
         gotoxy(37, 12);
         cout<<"+-----------------------+";
         
-        change_color(15,22);
+        change_color(15);
         gotoxy(37, 14);
         cout<<"+-----------------------+";
         gotoxy(37, 15);
         cout<<"|       Cubiculos       |";
 				gotoxy(37, 16);
         cout<<"+-----------------------+";
-        change_color(15,0);
+        change_color(15);
 
         gotoxy(37, 18);
         cout<<"+-----------------------+";
@@ -106,14 +106,14 @@ void UserMain::seleccionar_opcion(GestorVentanas& gestor){
 				gotoxy(37, 16);
         cout<<"+-----------------------+";
 
-        change_color(15,22);
+        change_color(15);
         gotoxy(37, 18);
         cout<<"+-----------------------+";
         gotoxy(37, 19);
         cout<<"|    Reservas Hechas    |";
 				gotoxy(37, 20);
         cout<<"+-----------------------+";
-        change_color(15,0);
+        change_color(15);
 
         gotoxy(37, 22);
         cout<<"+-----------------------+";
@@ -145,14 +145,14 @@ void UserMain::seleccionar_opcion(GestorVentanas& gestor){
 				gotoxy(37, 20);
         cout<<"+-----------------------+";
 
-        change_color(15,22);
+        change_color(15);
         gotoxy(37, 22);
         cout<<"+-----------------------+";
         gotoxy(37, 23);
         cout<<"|         Salir         |";
 				gotoxy(37, 24);
         cout<<"+-----------------------+";
-        change_color(15,0);
+        change_color(15);
 				break;
 		}
 		

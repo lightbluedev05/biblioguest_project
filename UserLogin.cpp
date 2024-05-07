@@ -10,48 +10,54 @@ using namespace std;
 
 void UserLogin::mostrar(){
   show_cursor();
+
+  change_color(112);
   system("cls");
-  rectangle(46, 20, 30, 5);
-  gotoxy(37,8);
+  //rectangle(48,22,37,4);
+  change_color(240);
+  rectangle(46, 20, 38, 5);
+
+  gotoxy(45,8);
   cout<<"ALUMNO, INGRESE SUS CREDENCIALES";
-  gotoxy(37,11);
+
+  gotoxy(45,11);
   cout<<"CODIGO:";
-  gotoxy(37,12);
+  gotoxy(45,12);
   cout<<"+------------------------------+";
-  gotoxy(37,13);
+  gotoxy(45,13);
   cout<<"|                              |";
-  gotoxy(37,14);
+  gotoxy(45,14);
   cout<<"+------------------------------+";
 
-  gotoxy(37,16);
+  gotoxy(45,16);
   cout<<"CONTRASENA:";
-  gotoxy(37,17);
+  gotoxy(45,17);
   cout<<"+------------------------------+";
-  gotoxy(37,18);
+  gotoxy(45,18);
   cout<<"|                              |";
-  gotoxy(37,19);
+  gotoxy(45,19);
   cout<<"+------------------------------+";
 
-  gotoxy(35, 22);
+  gotoxy(43, 22);
   cout<<"+------------+";
-  gotoxy(35, 23);
+  gotoxy(43, 23);
   cout<<"|  INGRESAR  |";
-  gotoxy(35, 24);
+  gotoxy(43, 24);
   cout<<"+------------+";
 
-  gotoxy(58, 22);
+  gotoxy(66, 22);
   cout<<"+-----------+";
-  gotoxy(58, 23);
+  gotoxy(66, 23);
   cout<<"|   SALIR   |";
-  gotoxy(58, 24);
+  gotoxy(66, 24);
   cout<<"+-----------+";
 
 }
 
 void UserLogin::ingresar_credenciales(GestorVentanas& gestor){
-  gotoxy(38,13);
+  gotoxy(46,13);
   cin>>gestor.codigo;
-  gotoxy(38,18);
+  gotoxy(46,18);
   cin>>gestor.contrasena;
 }
 
@@ -72,42 +78,41 @@ void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
   int opc=1, tecla=75;
   while(tecla!=13){
     switch(tecla){
-			case 75: 
-				change_color(15,22);
-				gotoxy(35, 22);
+			case 75:
+        change_color(31);
+				gotoxy(43, 22);
         cout<<"+------------+";
-        gotoxy(35, 23);
+        gotoxy(43, 23);
         cout<<"|  INGRESAR  |";
-        gotoxy(35, 24);
+        gotoxy(43, 24);
         cout<<"+------------+";
+        change_color(240);
 
-        change_color(15,0);
-        gotoxy(58, 22);
+        gotoxy(66, 22);
         cout<<"+-----------+";
-        gotoxy(58, 23);
+        gotoxy(66, 23);
         cout<<"|   SALIR   |";
-				gotoxy(58, 24);
+        gotoxy(66, 24);
         cout<<"+-----------+";
 
 				opc=1;
 				break;
 			case 77:
-				change_color(15,0);
-				gotoxy(35, 22);
+				gotoxy(43, 22);
         cout<<"+------------+";
-        gotoxy(35, 23);
+        gotoxy(43, 23);
         cout<<"|  INGRESAR  |";
-        gotoxy(35, 24);
+        gotoxy(43, 24);
         cout<<"+------------+";
 
-        change_color(15,22);
-        gotoxy(58, 22);
+        change_color(31);
+        gotoxy(66, 22);
         cout<<"+-----------+";
-        gotoxy(58, 23);
+        gotoxy(66, 23);
         cout<<"|   SALIR   |";
-				gotoxy(58, 24);
+        gotoxy(66, 24);
         cout<<"+-----------+";
-        change_color(15,0);
+        change_color(240);
 				
 				opc=0;
 				break;
