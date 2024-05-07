@@ -8,23 +8,35 @@
 using namespace std;
 
 void MainWindow::mostrar(){
+  change_color(116);
   system("cls");
-  rectangle(45, 14, 33, 5);
+
+  change_color(112);
+  rectangle(45, 14, 33, 7);
   gotoxy(39,7);
   cout<<"Bienvenido al Sistema de Gestion";
   gotoxy(36,8);
   cout<<"de reserva de la Biblioteca de la UNMSM";
-  gotoxy(30,0);
-  cout<<"    ____  _ __    ___       ______                __ "<<endl;
-  gotoxy(30,1);
-  cout<<"   / __ )(_) /_  / (_)___  / ____/_  _____  _____/ /_"<<endl;
-  gotoxy(30,2);
-  cout<<"  / __  / / __ |/ / / __ |/ / __/ / / / _ |/ ___/ __/"<<endl;
-  gotoxy(30,3);
-  cout<<" / /_/ / / /_/ / / / /_/ / /_/ / /_/ /  __(__  ) /_  "<<endl;
+
+  change_color(113);
+  gotoxy(30, 24);
+  cout<<"UTILIZE LAS FLECHAS PARA SELECCIONAR LAS OPCIONES 🡹 🡻";
+
+  change_color(116);
+  gotoxy(33,1);
+  cout<<" ____  _ __    ___       ______                __ "<<endl;
+  change_color(124);
+  gotoxy(32,2);
+  cout<<" / __ )(_) /_  / (_)___  / ____/_  _____  _____/ /_"<<endl;
+  change_color(116);
+  gotoxy(31,3);
+  cout<<" / __  / / __ |/ / / __ |/ / __/ / / / _ |/ ___/ __/"<<endl;
+  change_color(124);
   gotoxy(30,4);
-  cout<<"/_____/_/_____/_/_/|____/|____/|____/|___/____/|__/  "<<endl;
+  cout<<" / /_/ / / /_/ / / / /_/ / /_/ / /_/ /  __(__  ) /_ "<<endl;
+  change_color(116);
   gotoxy(30,5);
+  cout<<"/_____/_/_____/_/_/|____/|____/|____/|___/____/|__/"<<endl;
 
 }
 
@@ -33,47 +45,47 @@ void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
   while(tecla!=13){
     switch(tecla){
 			case 72: 
-				change_color(15,22);
-				gotoxy(43, 10);
+				change_color(113);
+				gotoxy(43, 12);
         cout<<"+-----------------------+";
-        gotoxy(43, 11);
-        cout<<"|     Ingresar como     |";
-        gotoxy(43, 12);
+        gotoxy(41, 13);
+        cout<<"🡺 |     Ingresar como     |";
+        gotoxy(43, 14);
         cout<<"|       un Alumno       |";
-        gotoxy(43, 13);
-        cout<<"+-----------------------+";
-
-        change_color(15,0);
         gotoxy(43, 15);
         cout<<"+-----------------------+";
-        gotoxy(43, 16);
-        cout<<"|     Ingresar como     |";
+
+        change_color(112);
         gotoxy(43, 17);
+        cout<<"+-----------------------+";
+        gotoxy(41, 18);
+        cout<<"  |     Ingresar como     |";
+        gotoxy(43, 19);
         cout<<"|     Administrador     |";
-				gotoxy(43, 18);
+				gotoxy(43, 20);
         cout<<"+-----------------------+";
 
 				opc=1;
 				break;
 			case 80:
-				change_color(15,0);
-				gotoxy(43, 10);
+				change_color(112);
+				gotoxy(43, 12);
         cout<<"+-----------------------+";
-        gotoxy(43, 11);
-        cout<<"|     Ingresar como     |";
-        gotoxy(43, 12);
+        gotoxy(41, 13);
+        cout<<"  |     Ingresar como     |";
+        gotoxy(43, 14);
         cout<<"|       un Alumno       |";
-        gotoxy(43, 13);
-        cout<<"+-----------------------+";
-
-        change_color(15,22);
         gotoxy(43, 15);
         cout<<"+-----------------------+";
-        gotoxy(43, 16);
-        cout<<"|     Ingresar como     |";
+
+        change_color(113);
         gotoxy(43, 17);
+        cout<<"+-----------------------+";
+        gotoxy(41, 18);
+        cout<<"🡺 |     Ingresar como     |";
+        gotoxy(43, 19);
         cout<<"|     Administrador     |";
-				gotoxy(43, 18);
+				gotoxy(43, 20);
         cout<<"+-----------------------+";
 				
 				opc=0;

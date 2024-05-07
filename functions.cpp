@@ -26,8 +26,8 @@ void show_cursor(){
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
-void change_color(int color, int colorf){
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color | colorf );
+void change_color(int color){
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
 void rectangle(int ancho, int alto, int x, int y){
