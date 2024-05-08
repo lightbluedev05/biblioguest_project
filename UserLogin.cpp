@@ -13,9 +13,28 @@ void UserLogin::mostrar(){
 
   change_color(112);
   system("cls");
-  //rectangle(48,22,37,4);
+  
   change_color(240);
   rectangle(46, 20, 38, 5);
+
+  change_color(244);
+  gotoxy(90, 5);
+  cout<<"######";
+  gotoxy(90, 6);
+  cout<<"##   ##";
+  gotoxy(90, 7);
+  cout<<"##   ##";
+  gotoxy(90, 8);
+  cout<<"######";
+  gotoxy(90, 9);
+  cout<<"##   ##";
+  gotoxy(90, 10);
+  cout<<"##   ##";
+  gotoxy(90, 11);
+  cout<<"######";
+
+  change_color(240);
+
 
   gotoxy(45,8);
   cout<<"ALUMNO, INGRESE SUS CREDENCIALES";
