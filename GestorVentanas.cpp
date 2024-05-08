@@ -23,6 +23,9 @@ void GestorVentanas::iniciar(){
       case Ventanas::RESERVASHECHAS:
         reservas_hechas->main(*this);
         break;
+      case Ventanas::ADMINLOGIN:
+        admin_login->main(*this);
+        break;
     }
   }
 }

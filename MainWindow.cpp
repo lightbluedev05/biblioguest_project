@@ -18,8 +18,11 @@ void MainWindow::mostrar(){
   gotoxy(37,9);
   cout<<"de reserva de la Biblioteca de la UNMSM";
 
-  gotoxy(30, 24);
-  cout<<"UTILIZE LAS FLECHAS PARA SELECCIONAR LAS OPCIONES 🡹 🡻";
+  gotoxy(32, 23);
+  cout<<"UTILIZE LAS FLECHAS PARA SELECCIONAR LAS OPCIONES";
+
+  gotoxy(47, 24);
+  cout<<"(Arriba y Abajo)";
 
   change_color(244);
   gotoxy(33,2);
@@ -48,7 +51,7 @@ void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
 				gotoxy(44, 12);
         cout<<"+-----------------------+";
         gotoxy(42, 13);
-        cout<<"🡺 |     Ingresar como     |";
+        cout<<"->|     Ingresar como     |";
         gotoxy(44, 14);
         cout<<"|       un Alumno       |";
         gotoxy(44, 15);
@@ -81,7 +84,7 @@ void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
         gotoxy(44, 17);
         cout<<"+-----------------------+";
         gotoxy(42, 18);
-        cout<<"🡺 |     Ingresar como     |";
+        cout<<"->|     Ingresar como     |";
         gotoxy(44, 19);
         cout<<"|     Administrador     |";
 				gotoxy(44, 20);
@@ -99,7 +102,7 @@ void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
       gestor.cambiar_ventana(Ventanas::USERLOGIN);
       break;
     case 0:
-      gestor.terminar_programa();
+      gestor.cambiar_ventana(Ventanas::ADMINLOGIN);
       break;
   }
 
