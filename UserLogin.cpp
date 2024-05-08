@@ -13,48 +13,42 @@ void UserLogin::mostrar(){
 
   change_color(112);
   system("cls");
+
+  change_color(113);
+  gotoxy(45,2);
+  cout<<"SI ES LA PRIMERA VEZ QUE INGRESA";
+  gotoxy(36,3);
+  cout<<"SE CREARA UNA CUENTA CON LA CONTRASEÑA QUE COLOQUE";
   
   change_color(240);
   rectangle(46, 20, 38, 5);
 
+  gotoxy(39, 7);
+  cout<<"--------------------------------------------";
   change_color(244);
-  gotoxy(90, 5);
-  cout<<"######";
-  gotoxy(90, 6);
-  cout<<"##   ##";
-  gotoxy(90, 7);
-  cout<<"##   ##";
-  gotoxy(90, 8);
-  cout<<"######";
-  gotoxy(90, 9);
-  cout<<"##   ##";
-  gotoxy(90, 10);
-  cout<<"##   ##";
-  gotoxy(90, 11);
-  cout<<"######";
-
+  gotoxy(53,6);
+  cout<<"INICIO DE SESION";
   change_color(240);
 
-
-  gotoxy(45,8);
+  gotoxy(45,9);
   cout<<"ALUMNO, INGRESE SUS CREDENCIALES";
 
-  gotoxy(45,11);
-  cout<<"CODIGO:";
   gotoxy(45,12);
-  cout<<"+------------------------------+";
+  cout<<"CODIGO:";
   gotoxy(45,13);
-  cout<<"|                              |";
+  cout<<"+------------------------------+";
   gotoxy(45,14);
+  cout<<"|                              |";
+  gotoxy(45,15);
   cout<<"+------------------------------+";
 
-  gotoxy(45,16);
-  cout<<"CONTRASENA:";
   gotoxy(45,17);
-  cout<<"+------------------------------+";
+  cout<<"CONTRASENA:";
   gotoxy(45,18);
-  cout<<"|                              |";
+  cout<<"+------------------------------+";
   gotoxy(45,19);
+  cout<<"|                              |";
+  gotoxy(45,20);
   cout<<"+------------------------------+";
 
   gotoxy(43, 22);
@@ -74,9 +68,9 @@ void UserLogin::mostrar(){
 }
 
 void UserLogin::ingresar_credenciales(GestorVentanas& gestor){
-  gotoxy(46,13);
+  gotoxy(46,14);
   cin>>gestor.codigo;
-  gotoxy(46,18);
+  gotoxy(46,19);
   cin>>gestor.contrasena;
 }
 
@@ -85,32 +79,80 @@ void UserLogin::validar_credenciales(GestorVentanas& gestor){
   int verificacion = VerificarUsuario(gestor.codigo, gestor.contrasena, gestor);
   switch (verificacion){
     case 1:
+      //$ INGRESO NORMAL
       gestor.cambiar_ventana(Ventanas::USERMAIN);
       break;
-    case 0:
-      cout<<"error";
+    case 2:
+      //$ NUEVO MATRICULA
+      gotoxy(46, 10);
+      cout<<"+-------------------------------+";
+      gotoxy(46, 11);
+      cout<<"|         CUENTA CREADA         |";
+      gotoxy(46, 12);
+      cout<<"+-------------------------------+";
+      gestor.cambiar_ventana(Ventanas::USERMAIN);
+      getch();
+      break;
+    case 3:
+      //$ CREDENCIALES INCORRECTAS
+      gotoxy(45, 10);
+      cout<<"+------------------------------+";
+      gotoxy(45, 11);
+      cout<<"|   CREDENCIALES INCORRECTAS   |";
+      gotoxy(45, 12);
+      cout<<"+------------------------------+";
+      change_color(244);
+      gotoxy(31, 14);
+      cout<<"Ya existe una cuenta con este codigo y la contraseña no coincide";
+      change_color(240);
+      gotoxy(39, 15);
+      cout<<"En caso que usted no haya creado esta cuenta,";
+      gotoxy(45, 16);
+      cout<<"o se haya olvidado su contraseña";
+      gotoxy(37, 17);
+      cout<<"acerquese a recepcion para solucionar el problema";
+      getch();
+      break;
+    case 4:
+      //$ NO ES ALUMNO
+      gotoxy(45, 10);
+      cout<<"+------------------------------+";
+      gotoxy(45, 11);
+      cout<<"|         NO ES ALUMNO         |";
+      gotoxy(45, 12);
+      cout<<"+------------------------------+";
+      change_color(244);
+      gotoxy(37, 14);
+      cout<<"Este codigo no se encuentra en la base de datos,";
+      gotoxy(47, 15);
+      cout<<"por favor verifique el mismo";
+      gotoxy(40, 16);
+      cout<<"Si el error persiste, acerquese a recepcion";
+      change_color(240);
+      getch();
       break;
   }
 }
 
 void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
   int opc=1, tecla=75;
+  hide_cursor();
   while(tecla!=13){
     switch(tecla){
 			case 75:
-        change_color(31);
+        change_color(241);
 				gotoxy(43, 22);
         cout<<"+------------+";
-        gotoxy(43, 23);
-        cout<<"|  INGRESAR  |";
+        gotoxy(41, 23);
+        cout<<"->|  INGRESAR  |";
         gotoxy(43, 24);
         cout<<"+------------+";
         change_color(240);
 
         gotoxy(66, 22);
         cout<<"+-----------+";
-        gotoxy(66, 23);
-        cout<<"|   SALIR   |";
+        gotoxy(64, 23);
+        cout<<"  |   SALIR   |";
         gotoxy(66, 24);
         cout<<"+-----------+";
 
@@ -119,16 +161,16 @@ void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
 			case 77:
 				gotoxy(43, 22);
         cout<<"+------------+";
-        gotoxy(43, 23);
-        cout<<"|  INGRESAR  |";
+        gotoxy(41, 23);
+        cout<<"  |  INGRESAR  |";
         gotoxy(43, 24);
         cout<<"+------------+";
 
-        change_color(31);
+        change_color(241);
         gotoxy(66, 22);
         cout<<"+-----------+";
-        gotoxy(66, 23);
-        cout<<"|   SALIR   |";
+        gotoxy(64, 23);
+        cout<<"->|   SALIR   |";
         gotoxy(66, 24);
         cout<<"+-----------+";
         change_color(240);
