@@ -7,7 +7,6 @@ void GestorVentanas::iniciar(){
   hide_cursor();
   while(!GestorVentanas::exit){
     switch(ventana_actual){
-
       //AGREGAR CADA CASO DE VENTANA
       case Ventanas::MAINWINDOW:
         main_window->main(*this);
@@ -17,6 +16,12 @@ void GestorVentanas::iniciar(){
         break;
       case Ventanas::USERMAIN:
         user_main->main(*this);
+        break;
+      case Ventanas::LAPTOPMAIN:
+        laptop_main->main(*this);
+        break;
+      case Ventanas::RESERVASHECHAS:
+        reservas_hechas->main(*this);
         break;
     }
   }
