@@ -36,13 +36,13 @@ void guardardatos(const vector<User>& users){
 
 bool verificarnuevo(const string& cod_ingresado, const vector<User>& users){
     for (int i = 0; i < users.size(); ++i) {
-        if (users[i].cod == cod_ingresado) {
-        	if (users[i].contra == "ODNCXASODXASLO15533"){
-        		return true;
-			}
-        }
+      if (users[i].cod == cod_ingresado) {
+        if (users[i].contra == "ODNCXASODXASLO15533"){
+					return true;
+				}
+      }
     }
-    return false;
+  return false;
 }
 
 bool vericarmatricula(const string& cod_ingresado, const vector<User>& users){
@@ -94,7 +94,7 @@ int VerificarUsuario(string cod_ingresado, string contra_ingresado, GestorVentan
     
 
 	int aux;
-	int aux2=1;
+	int aux2;
 
   if (verificar(cod_ingresado, contra_ingresado, users)) {
     for (int i = 0; i < users.size(); ++i){
@@ -102,9 +102,8 @@ int VerificarUsuario(string cod_ingresado, string contra_ingresado, GestorVentan
 				aux = i;
 			}
 		}
-		
+			//$ INGRESO NORMAL
 			aux2=1;
-
 			gestor.nombre = users[aux].nombre;
 	
 	} else {
@@ -114,25 +113,22 @@ int VerificarUsuario(string cod_ingresado, string contra_ingresado, GestorVentan
 					aux = i;
 				}
 			}
-		
 			users[aux].contra = contra_ingresado;
-			
 			guardardatos(users);
 			
-			cout <<"\n\tCUENTA CREADA";
+			//$ NUEVO MATRICULA
+			aux2=2;
 			gestor.nombre = users[aux].nombre;
 
-			aux2=1;
-			getch();
 		} else {
 			if (vericarmatricula(cod_ingresado, users)){
-				cout << "\n\tCREDENCIALES INCORRECTAS" << endl;
-				aux2=0;
-				getch();
+				//$ CREDENCIALES INCORRECTAS
+				aux2=3;
+
 			} else {
-				cout << "\n\tNO ESTA MATRICULADO" << endl;
-				aux2=0;
-				getch();
+				//$ NO ES ALUMNO
+				aux2=4;
+
 			}
 		}
 	}
