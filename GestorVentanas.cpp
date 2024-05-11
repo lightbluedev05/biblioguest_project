@@ -20,6 +20,9 @@ void GestorVentanas::iniciar(){
       case Ventanas::LAPTOPMAIN:
         laptop_main->main(*this);
         break;
+      case Ventanas::CUBICULOSMAIN:
+        cubiculos_main->main(*this);
+        break;
       case Ventanas::RESERVASHECHAS:
         reservas_hechas->main(*this);
         break;
@@ -28,6 +31,9 @@ void GestorVentanas::iniciar(){
         break;
       case Ventanas::ADMINMAIN:
         admin_main->main(*this);
+        break;
+      case Ventanas::CUBICULOSRESERVA:
+        cubiculos_reserva->main(*this);
         break;
     }
   }

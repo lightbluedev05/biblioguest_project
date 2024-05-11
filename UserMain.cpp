@@ -185,7 +185,7 @@ void UserMain::seleccionar_opcion(GestorVentanas& gestor){
       gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
       break;
     case 2:
-      
+      gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
       break;
     case 3:
       gestor.cambiar_ventana(Ventanas::RESERVASHECHAS);
