@@ -26,6 +26,9 @@ void GestorVentanas::iniciar(){
       case Ventanas::ADMINLOGIN:
         admin_login->main(*this);
         break;
+      case Ventanas::ADMINMAIN:
+        admin_main->main(*this);
+        break;
     }
   }
 }
