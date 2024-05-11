@@ -33,7 +33,7 @@ void LaptopMain::mostrar() {
 
 void LaptopMain::listar_laptops() {
   system("cls");
-  cout<<"ESTOS SON LAS LISTAS";
+  cout<<"ESTOS SON LAS LISTAS"<<endl;
   getch();
 }
 
