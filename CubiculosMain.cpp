@@ -71,7 +71,7 @@ void CubiculosMain::listar_cubiculos() {
   ifstream archivo("cubiculos.txt");
   string linea;
   int aux;
-  int codigo_cubiculo;
+  string codigo_cubiculo;
 
   int cubiculo101[6]={0,0,0,0,0,0};
   int cubiculo102[6]={0,0,0,0,0,0};
@@ -83,28 +83,28 @@ void CubiculosMain::listar_cubiculos() {
   int cubiculo204[6]={0,0,0,0,0,0};
 
   while(getline(archivo, linea)){
-    if(linea.find("101") != string::npos){
+    if(linea.find("1A01") != string::npos){
       istringstream ss(linea);
       ss >> codigo_cubiculo;
       ss.ignore();
       ss >> aux;
       cubiculo101[aux]=1;
     }
-    if(linea.find("102") != string::npos){
+    if(linea.find("1A02") != string::npos){
       istringstream ss(linea);
       ss >> codigo_cubiculo;
       ss.ignore();
       ss >> aux;
       cubiculo102[aux]=1;
     }
-    if(linea.find("103") != string::npos){
+    if(linea.find("1A03") != string::npos){
       istringstream ss(linea);
       ss >> codigo_cubiculo;
       ss.ignore();
       ss >> aux;
       cubiculo103[aux]=1;
     }
-    if(linea.find("104") != string::npos){
+    if(linea.find("1A04") != string::npos){
       istringstream ss(linea);
       ss >> codigo_cubiculo;
       ss.ignore();
@@ -112,28 +112,28 @@ void CubiculosMain::listar_cubiculos() {
       cubiculo104[aux]=1;
     }
 
-    if(linea.find("201") != string::npos){
+    if(linea.find("2A01") != string::npos){
       istringstream ss(linea);
       ss >> codigo_cubiculo;
       ss.ignore();
       ss >> aux;
       cubiculo201[aux]=1;
     }
-    if(linea.find("202") != string::npos){
+    if(linea.find("2A02") != string::npos){
       istringstream ss(linea);
       ss >> codigo_cubiculo;
       ss.ignore();
       ss >> aux;
       cubiculo202[aux]=1;
     }
-    if(linea.find("203") != string::npos){
+    if(linea.find("2A03") != string::npos){
       istringstream ss(linea);
       ss >> codigo_cubiculo;
       ss.ignore();
       ss >> aux;
       cubiculo203[aux]=1;
     }
-    if(linea.find("204") != string::npos){
+    if(linea.find("2A04") != string::npos){
       istringstream ss(linea);
       ss >> codigo_cubiculo;
       ss.ignore();
@@ -141,17 +141,11 @@ void CubiculosMain::listar_cubiculos() {
       cubiculo204[aux]=1;
     }
   }
-
+  archivo.close();
 
   //$ PINTADO DE CONSOLA
   change_color(112);
   system("cls");
-  cout<<cubiculo101[0]<<endl;
-  cout<<cubiculo101[1]<<endl;
-  cout<<cubiculo101[2]<<endl;
-  cout<<cubiculo101[3]<<endl;
-  cout<<cubiculo101[4]<<endl;
-  cout<<cubiculo101[5]<<endl;
   change_color(240);
   rectangle(90, 25, 15, 2);
 
@@ -220,37 +214,36 @@ void CubiculosMain::listar_cubiculos() {
     switch(opc){
       case 0:
         gotoxy(33,13);
-        cout<<"CUBICULO #101";
+        cout<<"CUBICULO #1A01";
         pintar_cubiculo(cubiculo101, 24, 15);
         gotoxy(74,13);
-        cout<<"CUBICULO #102";
+        cout<<"CUBICULO #1A02";
         pintar_cubiculo(cubiculo102, 65, 15);
         gotoxy(33,20);
-        cout<<"CUBICULO #103";
+        cout<<"CUBICULO #1A03";
         pintar_cubiculo(cubiculo103, 24, 22);
         gotoxy(74,20);
-        cout<<"CUBICULO #104";
+        cout<<"CUBICULO #1A04";
         pintar_cubiculo(cubiculo104, 65, 22);
         break;
       case 1:
         gotoxy(33,13);
-        cout<<"CUBICULO #201";
+        cout<<"CUBICULO #2A01";
         pintar_cubiculo(cubiculo201, 24, 15);
         gotoxy(74,13);
-        cout<<"CUBICULO #202";
+        cout<<"CUBICULO #2A02";
         pintar_cubiculo(cubiculo202, 65, 15);
         gotoxy(33,20);
-        cout<<"CUBICULO #203";
+        cout<<"CUBICULO #2A03";
         pintar_cubiculo(cubiculo203, 24, 22);
         gotoxy(74,20);
-        cout<<"CUBICULO #204";
+        cout<<"CUBICULO #2A04";
         pintar_cubiculo(cubiculo204, 65, 22);
         break;
     }
 		tecla = _getch();
   }
   
-  getch();
 }
 
 void CubiculosMain::seleccionar_opcion(GestorVentanas& gestor) {
@@ -355,7 +348,7 @@ void CubiculosMain::seleccionar_opcion(GestorVentanas& gestor) {
       CubiculosMain::listar_cubiculos();
       break;
     case 2:
-      //gestor.cambiar_ventana(Ventanas::CUBICULOSRESERVA);
+      gestor.cambiar_ventana(Ventanas::CUBICULOSRESERVA);
       break;
     case 3:
       gestor.cambiar_ventana(Ventanas::USERMAIN);
