@@ -7,8 +7,10 @@
 #include "UserLogin.h"
 #include "UserMain.h"
 #include "LaptopMain.h"
-#include "ReservasHechas.h"
+#include "CubiculosMain.h"
 #include "AdminLogin.h"
+#include "AdminMain.h"
+#include "CubiculosReserva.h"
 
 
 //LLAMAR A CADA CLASE DE VENTANA AÑADIDA
@@ -16,8 +18,10 @@ class MainWindow;
 class UserLogin;
 class UserMain;
 class LaptopMain;
-class ReservasHechas;
+class CubiculosMain;
 class AdminLogin;
+class AdminMain;
+class CubiculosReserva;
 
 //AGREGAR LA VENTANA EN EL ENUM
 enum class Ventanas{
@@ -25,8 +29,10 @@ enum class Ventanas{
   USERLOGIN,
   USERMAIN,
   LAPTOPMAIN,
-  RESERVASHECHAS,
-  ADMINLOGIN
+  CUBICULOSMAIN,
+  ADMINLOGIN,
+  ADMINMAIN,
+  CUBICULOSRESERVA
 };
 
 class GestorVentanas {
@@ -47,8 +53,10 @@ class GestorVentanas {
     UserLogin* user_login;
     UserMain* user_main;
     LaptopMain* laptop_main;
-    ReservasHechas* reservas_hechas;
+    CubiculosMain* cubiculos_main;
     AdminLogin* admin_login;
+    AdminMain* admin_main;
+    CubiculosReserva* cubiculos_reserva;
 };
 
 #endif

@@ -20,11 +20,17 @@ void GestorVentanas::iniciar(){
       case Ventanas::LAPTOPMAIN:
         laptop_main->main(*this);
         break;
-      case Ventanas::RESERVASHECHAS:
-        reservas_hechas->main(*this);
+      case Ventanas::CUBICULOSMAIN:
+        cubiculos_main->main(*this);
         break;
       case Ventanas::ADMINLOGIN:
         admin_login->main(*this);
+        break;
+      case Ventanas::ADMINMAIN:
+        admin_main->main(*this);
+        break;
+      case Ventanas::CUBICULOSRESERVA:
+        cubiculos_reserva->main(*this);
         break;
     }
   }

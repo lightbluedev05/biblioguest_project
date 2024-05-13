@@ -1,43 +1,38 @@
-#include "LaptopMain.h"
 #include "GestorVentanas.h"
+#include "AdminMain.h"
 #include "functions.h"
 #include <iostream>
 #include <conio.h>
 #include <cstdlib>
 
-using namespace std;
-
-void LaptopMain::mostrar() {
+void AdminMain::mostrar(GestorVentanas& gestor){
   change_color(112);
   system("cls");
+  hide_cursor();
 
   change_color(240);
-  rectangle(46, 19, 37, 3);
+  rectangle(50, 22, 35, 2);
 
   change_color(244);
-  gotoxy(53,4);
-  cout<<"MENU DE LAPTOPS";
+  gotoxy(53, 3);
+  cout<<"MENU DE ADMIN";
 
   change_color(240);
-  gotoxy(38, 5);
-  cout<<"--------------------------------------------";
-  gotoxy(48, 7);
-  cout<<"Escoja que desea realizar:";
+  gotoxy(36, 4);
+  cout<<"------------------------------------------------";
+  gotoxy(37, 5);
+  cout<<"BIENVENIDO ADMIN";
+  gotoxy(40, 7);
+  cout<<"ESCOGE LA ACTIVIDAD QUE DESEA VERIFICAR:";
 
   change_color(241);
-  gotoxy(40, 20);
+  gotoxy(40, 23);
   cout<<"UTILIZE LAS FLECHAS PARA SELECCIONAR LAS";
-  gotoxy(48, 21);
+  gotoxy(48, 24);
   cout<<"OPCIONES (ARRIBA Y ABAJO)";
 }
 
-void LaptopMain::listar_laptops() {
-  system("cls");
-  cout<<"ESTOS SON LAS LISTAS"<<endl;
-  getch();
-}
-
-void LaptopMain::seleccionar_opcion(GestorVentanas& gestor) {
+void AdminMain::seleccionar_opcion(GestorVentanas& gestor){
   int opc=1, tecla=72;
   while(tecla!=13){
 
@@ -49,13 +44,13 @@ void LaptopMain::seleccionar_opcion(GestorVentanas& gestor) {
     }
 
     switch(opc){
-      //$ LISTADO
+      //$ LAPTOPS
 			case 1: 
 				change_color(241);
 				gotoxy(48, 9);
         cout<<"+-----------------------+";
         gotoxy(46, 10);
-        cout<<"->|     Listar Laptops    |";
+        cout<<"->|        Laptops        |";
         gotoxy(48, 11);
         cout<<"+-----------------------+";
         change_color(240);
@@ -63,25 +58,24 @@ void LaptopMain::seleccionar_opcion(GestorVentanas& gestor) {
         gotoxy(48, 12);
         cout<<"+-----------------------+";
         gotoxy(46, 13);
-        cout<<"  |        Reservar       |";
+        cout<<"  |       Cubiculos       |";
 				gotoxy(48, 14);
         cout<<"+-----------------------+";
 
-        gotoxy(48, 15);
+        gotoxy(48, 18);
         cout<<"+-----------------------+";
-        gotoxy(46, 16);
-        cout<<"  |         Atras         |";
-				gotoxy(48, 17);
+        gotoxy(46, 19);
+        cout<<"  |         Salir         |";
+				gotoxy(48, 20);
         cout<<"+-----------------------+";
-
 				break;
 
-      //$ RESERVAR
+      //$ CUBICULOS
 			case 2:
 				gotoxy(48, 9);
         cout<<"+-----------------------+";
         gotoxy(46, 10);
-        cout<<"  |     Listar Laptops    |";
+        cout<<"  |        Laptops        |";
         gotoxy(48, 11);
         cout<<"+-----------------------+";
 
@@ -89,45 +83,44 @@ void LaptopMain::seleccionar_opcion(GestorVentanas& gestor) {
         gotoxy(48, 12);
         cout<<"+-----------------------+";
         gotoxy(46, 13);
-        cout<<"->|        Reservar       |";
+        cout<<"->|       Cubiculos       |";
 				gotoxy(48, 14);
         cout<<"+-----------------------+";
         change_color(240);
 
-        gotoxy(48, 15);
+        gotoxy(48, 18);
         cout<<"+-----------------------+";
-        gotoxy(46, 16);
-        cout<<"  |         Atras         |";
-				gotoxy(48, 17);
+        gotoxy(46, 19);
+        cout<<"  |         Salir         |";
+				gotoxy(48, 20);
         cout<<"+-----------------------+";
-
 				break;
 
-      //$ ATRAS
+      //$ RESERVAS HECHAS
       case 3:
 				gotoxy(48, 9);
         cout<<"+-----------------------+";
         gotoxy(46, 10);
-        cout<<"  |     Listar Laptops    |";
+        cout<<"  |        Laptops        |";
         gotoxy(48, 11);
         cout<<"+-----------------------+";
 
         gotoxy(48, 12);
         cout<<"+-----------------------+";
         gotoxy(46, 13);
-        cout<<"  |        Reservar       |";
+        cout<<"  |       Cubiculos       |";
 				gotoxy(48, 14);
         cout<<"+-----------------------+";
 
         change_color(241);
-        gotoxy(48, 15);
+
+        gotoxy(48, 18);
         cout<<"+-----------------------+";
-        gotoxy(46, 16);
-        cout<<"->|         Atras         |";
-				gotoxy(48, 17);
+        gotoxy(46, 19);
+        cout<<"->|         Salir         |";
+				gotoxy(48, 20);
         cout<<"+-----------------------+";
         change_color(240);
-
 				break;
 		}
 		
@@ -136,18 +129,18 @@ void LaptopMain::seleccionar_opcion(GestorVentanas& gestor) {
 
   switch(opc){
     case 1:
-      LaptopMain::listar_laptops();
+      //gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
       break;
     case 2:
-      //gestor.cambiar_ventana(Ventanas::LAPTOPRESERVE);
+      //gestor.cambiar_ventana(Ventanas::RESERVASHECHAS);
       break;
     case 3:
-      gestor.cambiar_ventana(Ventanas::USERMAIN);
+      gestor.cambiar_ventana(Ventanas::MAINWINDOW);
       break;
   }
 }
 
-void LaptopMain::main(GestorVentanas& gestor) {
-  LaptopMain::mostrar();
-  LaptopMain::seleccionar_opcion(gestor);
+void AdminMain::main(GestorVentanas& gestor){
+  AdminMain::mostrar(gestor);
+  AdminMain::seleccionar_opcion(gestor);
 }
