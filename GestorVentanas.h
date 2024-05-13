@@ -8,7 +8,6 @@
 #include "UserMain.h"
 #include "LaptopMain.h"
 #include "CubiculosMain.h"
-#include "ReservasHechas.h"
 #include "AdminLogin.h"
 #include "AdminMain.h"
 #include "CubiculosReserva.h"
@@ -20,7 +19,6 @@ class UserLogin;
 class UserMain;
 class LaptopMain;
 class CubiculosMain;
-class ReservasHechas;
 class AdminLogin;
 class AdminMain;
 class CubiculosReserva;
@@ -32,7 +30,6 @@ enum class Ventanas{
   USERMAIN,
   LAPTOPMAIN,
   CUBICULOSMAIN,
-  RESERVASHECHAS,
   ADMINLOGIN,
   ADMINMAIN,
   CUBICULOSRESERVA
@@ -57,7 +54,6 @@ class GestorVentanas {
     UserMain* user_main;
     LaptopMain* laptop_main;
     CubiculosMain* cubiculos_main;
-    ReservasHechas* reservas_hechas;
     AdminLogin* admin_login;
     AdminMain* admin_main;
     CubiculosReserva* cubiculos_reserva;

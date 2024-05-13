@@ -4,6 +4,10 @@
 #include <iostream>
 #include <conio.h>
 #include <cstdlib>
+#include <fstream>
+#include <sstream>
+
+using namespace std;
 
 void UserMain::mostrar(GestorVentanas& gestor){
   change_color(112);
@@ -30,6 +34,78 @@ void UserMain::mostrar(GestorVentanas& gestor){
   cout<<"UTILIZE LAS FLECHAS PARA SELECCIONAR LAS";
   gotoxy(48, 24);
   cout<<"OPCIONES (ARRIBA Y ABAJO)";
+}
+
+void UserMain::mostrar_reservas(GestorVentanas& gestor){
+  ifstream archivo("cubiculos.txt");
+  string linea;
+  string aux_codigo_cubiculo="", aux_horario="", aux_codigo_alumno="";
+
+  while(getline(archivo, linea)){
+    if(linea.find(gestor.codigo) != string::npos){
+      //OBTENER LO QUE ESTA ESCRITO EN LA LINEA DONDE SE ENCONTRO EL CODIGO
+      istringstream ss(linea);
+      ss >> aux_codigo_cubiculo;
+      ss.ignore();
+      ss >> aux_horario;
+      ss.ignore();
+      ss >> aux_codigo_alumno;
+      break;
+    }
+  }
+
+  archivo.close();
+
+  system("cls");
+
+  if(aux_codigo_alumno==""){
+    gotoxy(31, 10);
+    cout<<"--------NO TIENES NINGUNA RESERVA EL DIA DE HOY--------";
+    change_color(241);
+    gotoxy(42,11);
+    cout<<"PUEDES INTENTAR EJECUTAR ALGUNA RESERVA";
+  } else {
+    switch(stoi(aux_horario)){
+      case 0:
+        aux_horario = "08am-10am";
+        break;
+      case 1:
+        aux_horario = "10am-12pm";
+        break;
+      case 2:
+        aux_horario = "12pm-02pm";
+        break;
+      case 3:
+        aux_horario = "02pm-04pm";
+        break;
+      case 4:
+        aux_horario = "04pm-06pm";
+        break;
+      case 5:
+        aux_horario = "06pm-08pm";
+        break;
+    }
+    gotoxy(31, 10);
+    cout<<"------------ESTAS SON TUS RESERVAS DE HOY------------";
+    change_color(241);
+    gotoxy(36,12);
+    cout<<"CUBICULOS";
+    change_color(240);
+    gotoxy(36,14);
+    cout<<"Cubiculo: "<<aux_codigo_cubiculo;
+    gotoxy(36,15);
+    cout<<"Horario: "<<aux_horario;
+    gotoxy(36,16);
+    cout<<"Alumno: "<<aux_codigo_alumno;
+
+    change_color(241);
+    gotoxy(65, 12);
+    cout<<"LAPTOPS";
+    change_color(240);
+
+  }
+  
+  getch();
 }
 
 void UserMain::seleccionar_opcion(GestorVentanas& gestor){
@@ -188,7 +264,7 @@ void UserMain::seleccionar_opcion(GestorVentanas& gestor){
       gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
       break;
     case 3:
-      gestor.cambiar_ventana(Ventanas::RESERVASHECHAS);
+      UserMain::mostrar_reservas(gestor);
       break;
     case 4:
       gestor.cambiar_ventana(Ventanas::MAINWINDOW);
