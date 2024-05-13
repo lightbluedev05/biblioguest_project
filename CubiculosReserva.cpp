@@ -227,11 +227,14 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
       cout<<"PUEDES CONSULTARLO EN TUS RESERVAS HECHAS";
       getch();
       encontrado=true;
-      gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+      gestor.cambiar_ventana(Ventanas::USERMAIN);
       break;
     }
   }
   
+  archivo.clear();
+  archivo.seekg(0, ios::beg);
+
   if(encontrado==false){
     while(getline(archivo, linea)){
       istringstream ss(linea);
@@ -248,6 +251,7 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
         gotoxy(34,11);
         cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE CUBICULOS";
         getch();
+        encontrado=true;
         gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
         break;
       }
@@ -259,44 +263,7 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
   }
 
   archivo.close();
-  /*while(getline(archivo, linea)){
-    if(linea.find("1A01 1 23200328") != string::npos){
-      //$ ALUMNO YA RESERVO CUBICULO
-      change_color(240);
-      system("cls");
-      gotoxy(31, 10);
-      cout<<"--------YA HAS RESERVADO UN CUBICULO EL DIA DE HOY--------";
-      change_color(241);
-      gotoxy(39,11);
-      cout<<"PUEDES CONSULTARLO EN TUS RESERVAS HECHAS";
-      getch();
-      break;
-
-    } else {
-      istringstream ss(linea);
-      ss >> aux_codigo_cubiculo;
-      ss.ignore();
-      ss >> aux_horario;
-
-      if(!(CubiculosReserva::horario == aux_horario && CubiculosReserva::codigo_cubiculo == aux_codigo_cubiculo)){
-        //$ EJECUTA LA RESERVA
-        CubiculosReserva::ejecutar_reserva(gestor);
-        break;
-
-      } else {
-        //$ HORARIO OCUPADO
-        change_color(240);
-        system("cls");
-        gotoxy(25, 10);
-        cout<<"--------EL HORARIO SELECCIONADO EN ESTE CUBICULO YA ESTA RESERVADO--------";
-        change_color(241);
-        gotoxy(34,11);
-        cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE CUBICULOS";
-        getch();
-        break;
-      }
-    }
-  }*/
+  
 }
 
 void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor){
@@ -310,7 +277,9 @@ void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor){
   archivo.close();
 
   system("cls");
-  cout<<"RESERVA EJECUTADA";
+  change_color(241);
+  gotoxy(37,11);
+  cout<<"LA RESERVA HA SIDO EJECUTADA CON EXITO :)";
   getch();
   gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
 }
