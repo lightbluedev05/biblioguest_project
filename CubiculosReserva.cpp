@@ -8,6 +8,8 @@
 #include <sstream>
 #include <algorithm>
 #include <set>
+#include <ctime>
+
 
 using namespace std;
 
@@ -214,6 +216,7 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
   string aux_codigo_cubiculo;
   string aux_horario;
   bool encontrado = false;
+  bool enbuenahora = true;
 
   while(getline(archivo, linea)){
     if(linea.find(gestor.codigo) != string::npos){
@@ -236,6 +239,60 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
   archivo.seekg(0, ios::beg);
 
   if(encontrado==false){
+
+    time_t tiempoActual = time(NULL);
+    tm* tiempoLocal = localtime(&tiempoActual);
+    int horaActual = tiempoLocal->tm_hour;
+
+    // Definir los horarios límite
+    int horaInicio, horaFin;
+
+    // Establecer los horarios límite según el horario seleccionado
+    switch (stoi(CubiculosReserva::horario)) {
+        case 0:
+            horaInicio = 8;
+            horaFin = 10;
+            break;
+        case 1:
+            horaInicio = 10;
+            horaFin = 12;
+            break;
+        case 2:
+            horaInicio = 12;
+            horaFin = 14;
+            break;
+        case 3:
+            horaInicio = 14;
+            horaFin = 16;
+            break;
+        case 4:
+            horaInicio = 16;
+            horaFin = 18;
+            break;
+        case 5:
+            horaInicio = 18;
+            horaFin = 20;
+            break;
+    }
+
+    if (horaActual >= horaFin) {
+        enbuenahora=false;
+    }
+  }
+
+  if(enbuenahora==false){
+    
+        change_color(240);
+        system("cls");
+        gotoxy(25, 10);
+        cout<<"--------¡¡¡¡¡¡¡¡¡¡¡¡ESTAS FUERA DE HORA!!!!!!!!!!!!!!--------";
+        change_color(241);
+        gotoxy(34,11);
+        cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE CUBICULOS";
+        getch();
+        encontrado=true;
+        gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+  }else{
     while(getline(archivo, linea)){
       istringstream ss(linea);
       ss >> aux_codigo_cubiculo;
