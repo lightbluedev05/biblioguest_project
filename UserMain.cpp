@@ -25,7 +25,7 @@ void UserMain::mostrar(GestorVentanas& gestor){
   gotoxy(36, 4);
   cout<<"------------------------------------------------";
   gotoxy(37, 5);
-  cout<<"BIENVENIDO "<<gestor.nombre;
+  cout<<"BIENVENIDO"<<gestor.nombre;
   gotoxy(47, 7);
   cout<<"ESCOGE QUE DESEAS REALIZAR:";
 
