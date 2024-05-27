@@ -32,6 +32,9 @@ void GestorVentanas::iniciar(){
       case Ventanas::CUBICULOSRESERVA:
         cubiculos_reserva->main(*this);
         break;
+      case Ventanas::LAPTOPRESERVA:
+        laptop_reserva->main(*this);
+        break;
     }
   }
 }
