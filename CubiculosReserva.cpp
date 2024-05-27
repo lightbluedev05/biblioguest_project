@@ -15,7 +15,7 @@ using namespace std;
 
 //$ INICIALIZACION
 string CubiculosReserva::codigo_cubiculo;
-string CubiculosReserva::horario;
+string CubiculosReserva::horario_cubiculo;
 
 bool cubiculo_valido(const string& codigo) {
   set<string> codigos_validos = {"1A01", "1A02", "1A03", "1A04", "2A01", "2A02", "2A03", "2A04"};
@@ -126,37 +126,37 @@ void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
         break;
     }
 
-    if(aux_x==0 && aux_y==0){change_color(113); CubiculosReserva::horario = "0";}
+    if(aux_x==0 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "0";}
     rectangle(15, 1, 33, 10);
     gotoxy(36,11);
     cout<<"08am-10am";
     change_color(240);
 
-    if(aux_x==1 && aux_y==0){change_color(113); CubiculosReserva::horario = "1";}
+    if(aux_x==1 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "1";}
     rectangle(15, 1, 53, 10);
     gotoxy(56,11);
     cout<<"10am-12pm";
     change_color(240);
 
-    if(aux_x==2 && aux_y==0){change_color(113); CubiculosReserva::horario = "2";}
+    if(aux_x==2 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "2";}
     rectangle(15, 1, 73, 10);
     gotoxy(76,11);
     cout<<"12pm-02pm";
     change_color(240);
 
-    if(aux_x==0 && aux_y==1){change_color(113); CubiculosReserva::horario = "3";}
+    if(aux_x==0 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "3";}
     rectangle(15, 1, 33, 15);
     gotoxy(36,16);
     cout<<"02pm-04pm";
     change_color(240);
 
-    if(aux_x==1 && aux_y==1){change_color(113); CubiculosReserva::horario = "4";}
+    if(aux_x==1 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "4";}
     rectangle(15, 1, 53, 15);
     gotoxy(56,16);
     cout<<"04pm-06pm";
     change_color(240);
 
-    if(aux_x==2 && aux_y==1){change_color(113); CubiculosReserva::horario = "5";}
+    if(aux_x==2 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "5";}
     rectangle(15, 1, 73, 15);
     gotoxy(76,16);
     cout<<"06pm-08pm";
@@ -248,7 +248,7 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
     int horaInicio, horaFin;
 
     // Establecer los horarios límite según el horario seleccionado
-    switch (stoi(CubiculosReserva::horario)) {
+    switch (stoi(CubiculosReserva::horario_cubiculo)) {
         case 0:
             horaInicio = 8;
             horaFin = 10;
@@ -298,7 +298,7 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
       ss >> aux_codigo_cubiculo;
       ss.ignore();
       ss >> aux_horario;
-      if(CubiculosReserva::horario == aux_horario && CubiculosReserva::codigo_cubiculo == aux_codigo_cubiculo){
+      if(CubiculosReserva::horario_cubiculo == aux_horario && CubiculosReserva::codigo_cubiculo == aux_codigo_cubiculo){
         //$ HORARIO OCUPADO
         change_color(240);
         system("cls");
@@ -327,7 +327,7 @@ void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor){
 
   string reserva;
 
-  reserva=CubiculosReserva::codigo_cubiculo+" "+CubiculosReserva::horario+" "+gestor.codigo;
+  reserva=CubiculosReserva::codigo_cubiculo+" "+CubiculosReserva::horario_cubiculo+" "+gestor.codigo;
 
   ofstream archivo("cubiculos.txt", ios::app);
   archivo<<reserva<<endl;

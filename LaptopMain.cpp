@@ -139,7 +139,7 @@ void LaptopMain::seleccionar_opcion(GestorVentanas& gestor) {
       LaptopMain::listar_laptops();
       break;
     case 2:
-      //gestor.cambiar_ventana(Ventanas::LAPTOPRESERVE);
+      gestor.cambiar_ventana(Ventanas::LAPTOPRESERVA);
       break;
     case 3:
       gestor.cambiar_ventana(Ventanas::USERMAIN);

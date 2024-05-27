@@ -7,7 +7,7 @@ class GestorVentanas;
 class CubiculosReserva {
   public:
     static std::string codigo_cubiculo;
-    static std::string horario;
+    static std::string horario_cubiculo;
 
     //METODOS
     void mostrar();
