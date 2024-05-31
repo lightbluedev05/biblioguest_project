@@ -40,7 +40,7 @@ enum class Ventanas{
 
 class GestorVentanas {
   public:
-    std::string codigo="AAAAAAAA";
+    std::string codigo;
     std::string contrasena;
     std::string nombre;
     bool exit=false;
@@ -49,7 +49,7 @@ class GestorVentanas {
     void cambiar_ventana(Ventanas nueva_ventana);
     void terminar_programa();
   private:
-    Ventanas ventana_actual=Ventanas::LAPTOPMAIN;
+    Ventanas ventana_actual=Ventanas::MAINWINDOW;
 
     //CREAR UN OBJETO DE CADA VENTANA
     MainWindow* main_window;
