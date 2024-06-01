@@ -35,6 +35,9 @@ void GestorVentanas::iniciar(){
       case Ventanas::LAPTOPRESERVA:
         laptop_reserva->main(*this);
         break;
+      case Ventanas::ADMINVERIFICAR:
+        admin_verificar->main(*this);
+        break;
     }
   }
 }

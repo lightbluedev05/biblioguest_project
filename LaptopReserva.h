@@ -11,6 +11,7 @@ class LaptopReserva {
     static std::string horario_laptop;
     static std::vector<std::vector<std::string>> horarios_data;
     static std::vector<std::vector<std::string>> reservas_data;
+    static std::vector<std::vector<int>> historial;
     
     void mostrar();
     void conseguir_data();

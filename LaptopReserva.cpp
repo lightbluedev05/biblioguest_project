@@ -17,6 +17,7 @@ string LaptopReserva::codigo_laptop;
 string LaptopReserva::horario_laptop;
 vector<vector<string>> LaptopReserva::horarios_data;
 vector<vector<string>> LaptopReserva::reservas_data;
+vector<vector<int>> LaptopReserva::historial;
 
 void LaptopReserva::mostrar(){
   change_color(112);
@@ -106,6 +107,23 @@ void LaptopReserva::conseguir_data(){
     LaptopReserva::reservas_data.push_back(reservas);
   }
   file2.close();
+
+  //$ LAPTOPS_HISTORY.CSV
+  ifstream file3("laptops_history.csv");
+  string linea3;
+
+  LaptopReserva::historial.clear();
+  while(getline(file3, linea3)){
+    vector<int> history;
+    string valor;
+    stringstream ss3(linea3);
+
+    while(getline(ss3, valor, ',')){
+      history.push_back(stoi(valor));
+    }
+    LaptopReserva::historial.push_back(history);
+  }
+  file3.close();
 }
 
 void LaptopReserva::ingresar_datos(GestorVentanas& gestor){
@@ -344,6 +362,27 @@ void LaptopReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int hor
   ofstream file_2("reservas_data.csv", ios::app);
   file_2<<LaptopReserva::codigo_laptop<<","<<LaptopReserva::horario_laptop<<","<<gestor.codigo<<"\n";
   file_2.close();
+
+  for(int i = 0; i < LaptopReserva::historial.size(); i++) {
+    int aux = stoi(LaptopReserva::horario_laptop);
+      if(LaptopReserva::historial[i][0] == aux) {
+          LaptopReserva::historial[i][1]++;
+          break;
+      }
+  }
+
+  ofstream file_3("laptops_history.csv");
+
+  for(int i = 0; i < LaptopReserva::historial.size(); i++) {
+    for(int j = 0; j < LaptopReserva::historial[i].size(); j++) {
+      file_3<<LaptopReserva::historial[i][j];
+      if(j < LaptopReserva::historial[i].size() - 1) {
+          file_3<<",";
+      }
+    }
+    file_3<<"\n";
+  }
+  file_3.close();
 }
 
 void LaptopReserva::main(GestorVentanas& gestor){
