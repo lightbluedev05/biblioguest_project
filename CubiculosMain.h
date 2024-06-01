@@ -1,13 +1,16 @@
-#ifndef LAPTOPMAIN_H
-#define LAPTOPMAIN_H
+#ifndef CUBICULOSMAIN_H
+#define CUBICULOSMAIN_H
 #include "GestorVentanas.h"
 
 class GestorVentanas;
 
-class LaptopMain {
+void escoger_color(int valor);
+void pintar_cubiculo(int cubiculo[], int x, int y);
+
+class CubiculosMain {
   public:
     void mostrar();
-    void listar_laptops();
+    void listar_cubiculos();
     void seleccionar_opcion(GestorVentanas& gestor);
 
     void main(GestorVentanas& gestor);

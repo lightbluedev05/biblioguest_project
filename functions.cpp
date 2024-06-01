@@ -26,8 +26,8 @@ void show_cursor(){
     SetConsoleCursorInfo(consoleHandle, &cursorInfo);
 }
 
-void change_color(int color, int colorf){
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color | colorf );
+void change_color(int color){
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
 
 void rectangle(int ancho, int alto, int x, int y){
@@ -53,4 +53,11 @@ void rectangle(int ancho, int alto, int x, int y){
 		std::cout<<"-";
 	}
 	std::cout<<"+";
+}
+
+void button(int ancho, int alto, int x, int y, std::string texto){
+	rectangle(ancho, alto, x, y);
+	
+	gotoxy(x+((ancho-texto.size())/2), y+(alto+1)/2);
+	std::cout<<texto;
 }
