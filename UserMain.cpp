@@ -7,6 +7,8 @@
 #include <fstream>
 #include <sstream>
 #include <algorithm>
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -171,6 +173,24 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
   }
   file.close();
 
+  //* CONSEGUIR DATA DE HORARIOS
+  vector<vector<string>> h_data;
+  string linea2;
+  ifstream file2("horarios_data.csv");
+
+  while(getline(file2, linea2)){
+    vector<string> horarios={};
+    string horario="";
+    stringstream ss(linea2);
+
+    while(getline(ss, horario, ',')){
+      horarios.push_back(horario);
+    }
+    h_data.push_back(horarios);
+  }
+  file2.close();
+
+
   //* PINTADO DE OPCIONES
   system("cls");
   gotoxy(45, 8);
@@ -198,11 +218,34 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
 
   //* ELIMINACION DE RESERVA
   bool encontrado=false;
+
   switch(opc){
     //$ ELIMINACION DE RESERVA DE CUBICULO
     case 0:
       for(int i=0; i<data.size(); i++){
         if(data[i][2]==gestor.codigo && data[i][0][1]=='A'){
+          //* ELIMINAR DE HORARIOS_DATA
+          int aux_linea, aux_horario;
+          aux_horario=stoi(data[i][1]);
+          for(int h=0; h<h_data.size(); h++){
+            if(data[i][0]==h_data[h][0] && data[i][2]==gestor.codigo){
+              aux_linea=h;
+            }
+          }
+          h_data[aux_linea][aux_horario]="0";
+          ofstream file3("horarios_data.csv");
+          for(int t=0; t<h_data.size(); t++){
+            for(int y=0; y<h_data[t].size(); y++){
+              file3<<h_data[t][y];
+              if(y<h_data[t].size()-1){
+                file3<<",";
+              }
+            }
+            file3<<"\n";
+          }
+          file3.close();
+
+          //* ELIMINAR DE RESERVAS_DATA
           ofstream archivo("reservas_data.csv");
           for(int j=0; j<data.size(); j++){
             if(j!=i){
@@ -212,10 +255,13 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
                   archivo<<",";
                 }
               }
+            }
+            if(j<(data.size())-1 && j!=i){
               archivo<<"\n";
             }
           }
           archivo.close();
+
           encontrado=true;
           break;
         }
@@ -236,6 +282,28 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
     case 1:
       for(int i=0; i<data.size(); i++){
         if(data[i][2]==gestor.codigo && data[i][0][1]=='B'){
+          //* ELIMINAR DE HORARIOS_DATA
+          int aux_linea, aux_horario;
+          aux_horario=stoi(data[i][1]);
+          for(int h=0; h<h_data.size(); h++){
+            if(data[i][0]==h_data[h][0] && data[i][2]==gestor.codigo){
+              aux_linea=h;
+            }
+          }
+          h_data[aux_linea][aux_horario]="0";
+          ofstream file3("horarios_data.csv");
+          for(int t=0; t<h_data.size(); t++){
+            for(int y=0; y<h_data[t].size(); y++){
+              file3<<h_data[t][y];
+              if(y<h_data[t].size()-1){
+                file3<<",";
+              }
+            }
+            file3<<"\n";
+          }
+          file3.close();
+
+          //* ELIMINAR DE RESERVAS_DATA
           ofstream archivo("reservas_data.csv");
           for(int j=0; j<data.size(); j++){
             if(j!=i){
@@ -251,6 +319,7 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
             }
           }
           archivo.close();
+
           encontrado=true;
           break;
         }
