@@ -1,19 +1,18 @@
-#ifndef CUBICULOSRESERVA_H
-#define CUBICULOSRESERVA_H
+#ifndef LAPTOPRESERVA_H
+#define LAPTOPRESERVA_H
 #include "GestorVentanas.h"
 #include <vector>
 
 class GestorVentanas;
 
-class CubiculosReserva {
+class LaptopReserva {
   public:
-    static std::string codigo_cubiculo;
-    static std::string horario_cubiculo;
+    static std::string codigo_laptop;
+    static std::string horario_laptop;
     static std::vector<std::vector<std::string>> horarios_data;
     static std::vector<std::vector<std::string>> reservas_data;
     static std::vector<std::vector<int>> historial;
-
-    //METODOS
+    
     void mostrar();
     void conseguir_data();
     void ingresar_datos(GestorVentanas& gestor);

@@ -48,6 +48,10 @@
     "ctime": "cpp",
     "fstream": "cpp",
     "sstream": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "complex": "cpp",
+    "map": "cpp",
+    "set": "cpp",
+    "cinttypes": "cpp"
   }
 }

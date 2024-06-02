@@ -66,13 +66,21 @@ void CubiculosMain::mostrar() {
 }
 
 void CubiculosMain::listar_cubiculos() {
-  
-  //$ OBTENCION DE LAS RESERVAS DE CUBICULOS
-  ifstream archivo("cubiculos.txt");
+  //$ OBTENCION DE HORARIOS_DATA
+  ifstream horarios("horarios_data.csv");
   string linea;
-  int aux;
-  string codigo_cubiculo;
-
+  vector<vector<string>> h_data;
+  while(getline(horarios, linea)){
+    vector<string> aux={};
+    stringstream ss(linea);
+    string aux2;
+    while(getline(ss, aux2, ',')){
+      aux.push_back(aux2);
+    }
+    h_data.push_back(aux);
+  }
+  horarios.close();
+  
   int cubiculo101[6]={0,0,0,0,0,0};
   int cubiculo102[6]={0,0,0,0,0,0};
   int cubiculo103[6]={0,0,0,0,0,0};
@@ -82,66 +90,16 @@ void CubiculosMain::listar_cubiculos() {
   int cubiculo203[6]={0,0,0,0,0,0};
   int cubiculo204[6]={0,0,0,0,0,0};
 
-  while(getline(archivo, linea)){
-    if(linea.find("1A01") != string::npos){
-      istringstream ss(linea);
-      ss >> codigo_cubiculo;
-      ss.ignore();
-      ss >> aux;
-      cubiculo101[aux]=1;
-    }
-    if(linea.find("1A02") != string::npos){
-      istringstream ss(linea);
-      ss >> codigo_cubiculo;
-      ss.ignore();
-      ss >> aux;
-      cubiculo102[aux]=1;
-    }
-    if(linea.find("1A03") != string::npos){
-      istringstream ss(linea);
-      ss >> codigo_cubiculo;
-      ss.ignore();
-      ss >> aux;
-      cubiculo103[aux]=1;
-    }
-    if(linea.find("1A04") != string::npos){
-      istringstream ss(linea);
-      ss >> codigo_cubiculo;
-      ss.ignore();
-      ss >> aux;
-      cubiculo104[aux]=1;
-    }
-
-    if(linea.find("2A01") != string::npos){
-      istringstream ss(linea);
-      ss >> codigo_cubiculo;
-      ss.ignore();
-      ss >> aux;
-      cubiculo201[aux]=1;
-    }
-    if(linea.find("2A02") != string::npos){
-      istringstream ss(linea);
-      ss >> codigo_cubiculo;
-      ss.ignore();
-      ss >> aux;
-      cubiculo202[aux]=1;
-    }
-    if(linea.find("2A03") != string::npos){
-      istringstream ss(linea);
-      ss >> codigo_cubiculo;
-      ss.ignore();
-      ss >> aux;
-      cubiculo203[aux]=1;
-    }
-    if(linea.find("2A04") != string::npos){
-      istringstream ss(linea);
-      ss >> codigo_cubiculo;
-      ss.ignore();
-      ss >> aux;
-      cubiculo204[aux]=1;
-    }
+  for(int i=0; i<6; i++){
+    cubiculo101[i]=stoi(h_data[21][i+1]);
+    cubiculo102[i]=stoi(h_data[22][i+1]);
+    cubiculo103[i]=stoi(h_data[23][i+1]);
+    cubiculo104[i]=stoi(h_data[24][i+1]);
+    cubiculo201[i]=stoi(h_data[25][i+1]);
+    cubiculo202[i]=stoi(h_data[26][i+1]);
+    cubiculo203[i]=stoi(h_data[27][i+1]);
+    cubiculo204[i]=stoi(h_data[28][i+1]);
   }
-  archivo.close();
 
   //$ PINTADO DE CONSOLA
   change_color(112);
