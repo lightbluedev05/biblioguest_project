@@ -107,6 +107,7 @@ void AdminVerificar::ingresar_codigo(GestorVentanas& gestor){
     gotoxy(83,7);
     cout<<"CORRECTO";
     change_color(240);
+    hide_cursor();
     AdminVerificar::opciones(gestor);
     getch();
 }
@@ -302,7 +303,7 @@ void AdminVerificar::confirmar(GestorVentanas& gestor){
       gestor.cambiar_ventana(Ventanas::ADMINMAIN);
       break;
     case 1:
-      gestor.cambiar_ventana(Ventanas::ADMINVERIFICAR);
+      gestor.cambiar_ventana(Ventanas::ADMINMAIN);
       break;
   }
 }

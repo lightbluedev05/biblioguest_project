@@ -7,6 +7,7 @@
 #include <iostream>
 
 void AdminMain::mostrar(GestorVentanas& gestor) {
+    change_color(112);
     system("cls");
     hide_cursor();
 
@@ -194,7 +195,7 @@ void AdminMain::seleccionar_opcion(GestorVentanas& gestor) {
             break;
         case 3:
             //gestor.cambiar_ventana(Ventanas::ADMINSTATIC);
-            filePath = "Laptops.xlsx";
+            filePath = "Estadistica.xlsx";
 
             // Comando para abrir Excel con el archivo especificado
             command = "start excel \"" + filePath + "\"";
