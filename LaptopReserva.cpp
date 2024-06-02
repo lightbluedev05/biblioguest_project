@@ -275,7 +275,7 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
   int busqueda=0, horario_aux, linea;
 
   for(int i=0; i<r_data.size(); i++){
-    if(find(r_data[i].begin(), r_data[i].end(), gestor.codigo) != r_data[i].end()){
+    if(r_data[i][2]==gestor.codigo && r_data[i][0][1]=='B'){
       //$ CODIGO YA UTILIZADO
       busqueda=3;
       break;
@@ -283,9 +283,42 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
   }
 
   if(busqueda!=3){
+    time_t tiempoActual = time(NULL);
+    tm* tiempoLocal = localtime(&tiempoActual);
+    int horaActual = tiempoLocal->tm_hour;
+
+    // Definir los horarios límite
+    int horaInicio, horaFin;
+
+    // Establecer los horarios límite según el horario seleccionado
+    switch (stoi(LaptopReserva::horario_laptop)) {
+        case 1:
+            horaFin = 10;
+            break;
+        case 2:
+            horaFin = 12;
+            break;
+        case 3:
+            horaFin = 14;
+            break;
+        case 4:
+            horaFin = 16;
+            break;
+        case 5:
+            horaFin = 18;
+            break;
+        case 6:
+            horaFin = 20;
+            break;
+    }
+    if (horaActual >= horaFin) {
+        busqueda=4;
+    }
+  }
+
+  if(busqueda!=3 && busqueda!=4){
     for(int i=0; i<data.size(); i++){
-      auto aux = find(data[i].begin(), data[i].end(), LaptopReserva::codigo_laptop);
-      if(aux != data[i].end()){
+      if(data[i][0]==LaptopReserva::codigo_laptop){
         linea = i;
         horario_aux = stoi(LaptopReserva::horario_laptop);
         if(data[i][horario_aux] == "1"){
@@ -317,13 +350,13 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
       gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
       break;
     case 2:
+      ejecutar_reserva(gestor, linea, horario_aux);
       gotoxy(45, 12);
       cout<<"RESERVA EJECUTADA CON EXITO :)";
       change_color(241);
       gotoxy(41,13);
       cout<<"PRESIONE CUALQUIER TECLA PARA CONTINUAR";
       change_color(240);
-      ejecutar_reserva(gestor, linea, horario_aux);
       gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
       break;
     case 3:
@@ -332,6 +365,15 @@ void LaptopReserva::comprobacion_de_datos(GestorVentanas& gestor){
       change_color(241);
       gotoxy(41,13);
       cout<<"PRESIONE CUALQUIER TECLA PARA CONTINUAR";
+      change_color(240);
+      gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
+      break;
+    case 4:
+      gotoxy(25, 10);
+      cout<<"--------¡¡¡¡¡¡¡¡¡¡¡¡ESTAS FUERA DE HORA!!!!!!!!!!!!!!--------";
+      change_color(241);
+      gotoxy(34,11);
+      cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE CUBICULOS";
       change_color(240);
       gestor.cambiar_ventana(Ventanas::LAPTOPMAIN);
       break;

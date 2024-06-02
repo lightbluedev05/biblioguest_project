@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <set>
 #include <ctime>
+#include <vector>
 
 
 using namespace std;
@@ -16,6 +17,9 @@ using namespace std;
 //$ INICIALIZACION
 string CubiculosReserva::codigo_cubiculo;
 string CubiculosReserva::horario_cubiculo;
+vector<vector<string>> CubiculosReserva::horarios_data;
+vector<vector<string>> CubiculosReserva::reservas_data;
+vector<vector<int>> CubiculosReserva::historial;
 
 bool cubiculo_valido(const string& codigo) {
   set<string> codigos_validos = {"1A01", "1A02", "1A03", "1A04", "2A01", "2A02", "2A03", "2A04"};
@@ -75,6 +79,60 @@ void CubiculosReserva::mostrar(){
 
 }
 
+void CubiculosReserva::conseguir_data(){
+  //$ HORARIOS_DATA.CSV
+  ifstream file("horarios_data.csv");
+  string linea;
+
+  CubiculosReserva::horarios_data.clear();
+
+  while(getline(file, linea)){
+    vector<string> horarios={};
+    string horario="";
+    stringstream ss(linea);
+
+    while(getline(ss, horario, ',')){
+      horarios.push_back(horario);
+    }
+    CubiculosReserva::horarios_data.push_back(horarios);
+  }
+  file.close();
+
+  //$ RESERVAS_DATA.CSV
+  ifstream file2("reservas_data.csv");
+  string linea2;
+
+  CubiculosReserva::reservas_data.clear();
+  while(getline(file2, linea2)){
+    vector<string> reservas={};
+    string reserva="";
+    stringstream ss2(linea2);
+
+    while(getline(ss2, reserva, ',')){
+      reservas.push_back(reserva);
+    }
+    CubiculosReserva::reservas_data.push_back(reservas);
+  }
+  file2.close();
+
+  //$ LAPTOPS_HISTORY.CSV
+  ifstream file3("laptops_history.csv");
+  string linea3;
+
+  CubiculosReserva::historial.clear();
+  while(getline(file3, linea3)){
+    vector<int> history;
+    string valor;
+    stringstream ss3(linea3);
+
+    while(getline(ss3, valor, ',')){
+      history.push_back(stoi(valor));
+    }
+    CubiculosReserva::historial.push_back(history);
+  }
+  file3.close();
+}
+
 void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
   int controlador=0;
   do{
@@ -126,37 +184,37 @@ void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
         break;
     }
 
-    if(aux_x==0 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "0";}
+    if(aux_x==0 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "1";}
     rectangle(15, 1, 33, 10);
     gotoxy(36,11);
     cout<<"08am-10am";
     change_color(240);
 
-    if(aux_x==1 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "1";}
+    if(aux_x==1 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "2";}
     rectangle(15, 1, 53, 10);
     gotoxy(56,11);
     cout<<"10am-12pm";
     change_color(240);
 
-    if(aux_x==2 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "2";}
+    if(aux_x==2 && aux_y==0){change_color(113); CubiculosReserva::horario_cubiculo = "3";}
     rectangle(15, 1, 73, 10);
     gotoxy(76,11);
     cout<<"12pm-02pm";
     change_color(240);
 
-    if(aux_x==0 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "3";}
+    if(aux_x==0 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "4";}
     rectangle(15, 1, 33, 15);
     gotoxy(36,16);
     cout<<"02pm-04pm";
     change_color(240);
 
-    if(aux_x==1 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "4";}
+    if(aux_x==1 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "5";}
     rectangle(15, 1, 53, 15);
     gotoxy(56,16);
     cout<<"04pm-06pm";
     change_color(240);
 
-    if(aux_x==2 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "5";}
+    if(aux_x==2 && aux_y==1){change_color(113); CubiculosReserva::horario_cubiculo = "6";}
     rectangle(15, 1, 73, 15);
     gotoxy(76,16);
     cout<<"06pm-08pm";
@@ -211,35 +269,19 @@ void CubiculosReserva::ingresar_datos(GestorVentanas& gestor){
 }
 
 void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
-  ifstream archivo("cubiculos.txt");
-  string linea;
-  string aux_codigo_cubiculo;
-  string aux_horario;
-  bool encontrado = false;
-  bool enbuenahora = true;
+  vector<vector<string>> data = CubiculosReserva::horarios_data;
+  vector<vector<string>> r_data = CubiculosReserva::reservas_data;
+  int busqueda=0, horario_aux, linea;
 
-  while(getline(archivo, linea)){
-    if(linea.find(gestor.codigo) != string::npos){
-      //$ ALUMNO YA RESERVO CUBICULO
-      change_color(240);
-      system("cls");
-      gotoxy(31, 10);
-      cout<<"--------YA HAS RESERVADO UN CUBICULO EL DIA DE HOY--------";
-      change_color(241);
-      gotoxy(39,11);
-      cout<<"PUEDES CONSULTARLO EN TUS RESERVAS HECHAS";
-      getch();
-      encontrado=true;
-      gestor.cambiar_ventana(Ventanas::USERMAIN);
+  for(int i=0; i<r_data.size(); i++){
+    if(r_data[i][2]==gestor.codigo && r_data[i][0][1]=='A'){
+      //$ CODIGO YA UTILIZADO
+      busqueda=3;
       break;
     }
   }
-  
-  archivo.clear();
-  archivo.seekg(0, ios::beg);
 
-  if(encontrado==false){
-
+  if(busqueda!=3){
     time_t tiempoActual = time(NULL);
     tm* tiempoLocal = localtime(&tiempoActual);
     int horaActual = tiempoLocal->tm_hour;
@@ -249,99 +291,143 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
 
     // Establecer los horarios límite según el horario seleccionado
     switch (stoi(CubiculosReserva::horario_cubiculo)) {
-        case 0:
-            horaInicio = 8;
+        case 1:
             horaFin = 10;
             break;
-        case 1:
-            horaInicio = 10;
+        case 2:
             horaFin = 12;
             break;
-        case 2:
-            horaInicio = 12;
+        case 3:
             horaFin = 14;
             break;
-        case 3:
-            horaInicio = 14;
+        case 4:
             horaFin = 16;
             break;
-        case 4:
-            horaInicio = 16;
+        case 5:
             horaFin = 18;
             break;
-        case 5:
-            horaInicio = 18;
+        case 6:
             horaFin = 20;
             break;
     }
-
     if (horaActual >= horaFin) {
-        enbuenahora=false;
+        busqueda=4;
     }
   }
 
-  if(enbuenahora==false){
-    
-        change_color(240);
-        system("cls");
-        gotoxy(25, 10);
-        cout<<"--------¡¡¡¡¡¡¡¡¡¡¡¡ESTAS FUERA DE HORA!!!!!!!!!!!!!!--------";
-        change_color(241);
-        gotoxy(34,11);
-        cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE CUBICULOS";
-        getch();
-        encontrado=true;
-        gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
-  }else{
-    while(getline(archivo, linea)){
-      istringstream ss(linea);
-      ss >> aux_codigo_cubiculo;
-      ss.ignore();
-      ss >> aux_horario;
-      if(CubiculosReserva::horario_cubiculo == aux_horario && CubiculosReserva::codigo_cubiculo == aux_codigo_cubiculo){
-        //$ HORARIO OCUPADO
-        change_color(240);
-        system("cls");
-        gotoxy(25, 10);
-        cout<<"--------EL HORARIO SELECCIONADO EN ESTE CUBICULO YA ESTA RESERVADO--------";
-        change_color(241);
-        gotoxy(34,11);
-        cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE CUBICULOS";
-        getch();
-        encontrado=true;
-        gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+  if(busqueda!=3 && busqueda!=4){
+    for(int i=0; i<data.size(); i++){
+      if(data[i][0]==CubiculosReserva::codigo_cubiculo){
+        linea = i;
+        horario_aux = stoi(CubiculosReserva::horario_cubiculo);
+        if(data[i][horario_aux] == "1"){
+          //$ HORARIO OCUPADO
+          busqueda=1;
+        } else {
+          //$ HORARIO DISPONIBLE
+          busqueda=2;
+        }
         break;
       }
     }
   }
+  
+  system("cls");
 
-  if(encontrado==false){
-    CubiculosReserva::ejecutar_reserva(gestor);
+  switch(busqueda){
+    case 0:
+      gotoxy(50, 20);
+      cout<<"NO SE HA ENCONTRADO ESTE CODIGO DE CUBICULO";
+      break;
+    case 1:
+      gotoxy(45, 12);
+      cout<<"ESTE HORARIO YA ESTA RESERVADO";
+      change_color(241);
+      gotoxy(41,13);
+      cout<<"PRESIONE CUALQUIER TECLA PARA CONTINUAR";
+      change_color(240);
+      gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+      break;
+    case 2:
+      ejecutar_reserva(gestor, linea, horario_aux);
+      gotoxy(45, 12);
+      cout<<"RESERVA EJECUTADA CON EXITO :)";
+      change_color(241);
+      gotoxy(41,13);
+      cout<<"PRESIONE CUALQUIER TECLA PARA CONTINUAR";
+      change_color(240);
+      gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+      break;
+    case 3:
+      gotoxy(44, 12);
+      cout<<"YA HAS EJECUTADO UNA RESERVA HOY";
+      change_color(241);
+      gotoxy(41,13);
+      cout<<"PRESIONE CUALQUIER TECLA PARA CONTINUAR";
+      change_color(240);
+      gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+      break;
+    case 4:
+      gotoxy(25, 10);
+      cout<<"--------¡¡¡¡¡¡¡¡¡¡¡¡ESTAS FUERA DE HORA!!!!!!!!!!!!!!--------";
+      change_color(241);
+      gotoxy(34,11);
+      cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE LAPTOPS";
+      change_color(240);
+      gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+      break;
   }
 
-  archivo.close();
-  
+  getch();
 }
 
-void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor){
+void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int horario){
+  ofstream file("horarios_data.csv");
+  
+  vector<vector<string>> data = CubiculosReserva::horarios_data;
 
-  string reserva;
+  data[laptop][horario] = "1";
+  
+  for(int i=0; i<data.size(); i++){
+    for(int j=0; j<data[i].size(); j++){
+      file<<data[i][j];
+      if(j<data[i].size()-1){
+        file<<",";
+      }
+    }
+    file<<"\n";
+  }
 
-  reserva=CubiculosReserva::codigo_cubiculo+" "+CubiculosReserva::horario_cubiculo+" "+gestor.codigo;
+  file.close();
 
-  ofstream archivo("cubiculos.txt", ios::app);
-  archivo<<reserva<<endl;
-  archivo.close();
+  ofstream file_2("reservas_data.csv", ios::app);
+  file_2<<CubiculosReserva::codigo_cubiculo<<","<<CubiculosReserva::horario_cubiculo<<","<<gestor.codigo<<"\n";
+  file_2.close();
 
-  system("cls");
-  change_color(241);
-  gotoxy(37,11);
-  cout<<"LA RESERVA HA SIDO EJECUTADA CON EXITO :)";
-  getch();
-  gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
+  for(int i = 0; i < CubiculosReserva::historial.size(); i++) {
+    int aux = stoi(CubiculosReserva::horario_cubiculo);
+      if(CubiculosReserva::historial[i][0] == aux) {
+          CubiculosReserva::historial[i][1]++;
+          break;
+      }
+  }
+
+  ofstream file_3("laptops_history.csv");
+
+  for(int i = 0; i < CubiculosReserva::historial.size(); i++) {
+    for(int j = 0; j < CubiculosReserva::historial[i].size(); j++) {
+      file_3<<CubiculosReserva::historial[i][j];
+      if(j < CubiculosReserva::historial[i].size() - 1) {
+          file_3<<",";
+      }
+    }
+    file_3<<"\n";
+  }
+  file_3.close();
 }
 
 void CubiculosReserva::main(GestorVentanas& gestor){
   CubiculosReserva::mostrar();
+  CubiculosReserva::conseguir_data();
   CubiculosReserva::ingresar_datos(gestor);
 }
