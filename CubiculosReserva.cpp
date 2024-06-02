@@ -115,8 +115,8 @@ void CubiculosReserva::conseguir_data(){
   }
   file2.close();
 
-  //$ LAPTOPS_HISTORY.CSV
-  ifstream file3("laptops_history.csv");
+  //$ CUBICULOS_HISTORY.CSV
+  ifstream file3("cubiculos_history.csv");
   string linea3;
 
   CubiculosReserva::historial.clear();
@@ -372,7 +372,7 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
       cout<<"--------¡¡¡¡¡¡¡¡¡¡¡¡ESTAS FUERA DE HORA!!!!!!!!!!!!!!--------";
       change_color(241);
       gotoxy(34,11);
-      cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE LAPTOPS";
+      cout<<"REVISA LOS HORARIOS DISPONIBLES EN LA LISTA DE CUBICULOS";
       change_color(240);
       gestor.cambiar_ventana(Ventanas::CUBICULOSMAIN);
       break;
@@ -412,7 +412,7 @@ void CubiculosReserva::ejecutar_reserva(GestorVentanas& gestor, int laptop, int 
       }
   }
 
-  ofstream file_3("laptops_history.csv");
+  ofstream file_3("cubiculos_history.csv");
 
   for(int i = 0; i < CubiculosReserva::historial.size(); i++) {
     for(int j = 0; j < CubiculosReserva::historial[i].size(); j++) {

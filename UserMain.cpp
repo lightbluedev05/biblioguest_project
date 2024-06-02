@@ -13,6 +13,7 @@
 using namespace std;
 
 string UserMain::horario_laptop;
+string UserMain::horario_cubiculo;
 vector<vector<int>> UserMain::historial;
 
 void UserMain::mostrar(GestorVentanas& gestor){
@@ -227,6 +228,7 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
     case 0:
       for(int i=0; i<data.size(); i++){
         if(data[i][2]==gestor.codigo && data[i][0][1]=='A'){
+          UserMain::horario_cubiculo= data[i][1];
           //* ELIMINAR DE HORARIOS_DATA
           int aux_linea, aux_horario;
           aux_horario=stoi(data[i][1]);
@@ -278,6 +280,44 @@ void UserMain::cancelar_reserva(GestorVentanas& gestor){
       } else {
         gotoxy(50, 10);
         cout<<"RESERVA CANCELADA CON EXITO :)";
+        ifstream file3("cubiculos_history.csv");
+        string linea3;
+
+        UserMain::historial.clear();
+
+        while(getline(file3, linea3)){
+          vector<int> history;
+          string valor;
+          stringstream ss3(linea3);
+
+          while(getline(ss3, valor, ',')){
+            history.push_back(stoi(valor));
+          }
+          UserMain::historial.push_back(history);
+        }
+        file3.close();
+
+
+          for(int i = 0; i < UserMain::historial.size(); i++) {
+            int aux = stoi(UserMain::horario_cubiculo);
+              if(UserMain::historial[i][0] == aux) {
+                  UserMain::historial[i][1]--;
+                  break;
+              }
+          }
+
+          ofstream file_3("cubiculos_history.csv");
+
+          for(int i = 0; i < UserMain::historial.size(); i++) {
+            for(int j = 0; j < UserMain::historial[i].size(); j++) {
+              file_3<<UserMain::historial[i][j];
+              if(j < UserMain::historial[i].size() - 1) {
+                  file_3<<",";
+              }
+            }
+            file_3<<"\n";
+          }
+          file_3.close();
       }
       break;
 
