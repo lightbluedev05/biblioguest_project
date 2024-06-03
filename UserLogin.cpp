@@ -5,8 +5,15 @@
 #include <stdlib.h>
 #include "functions.h"
 #include "VerificarUsuario.h"
+#include <vector>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
+
+string UserLogin::sanciones;
+vector<vector<int>> UserLogin::historial_sanciones;
 
 void UserLogin::mostrar(){
   show_cursor();
@@ -183,9 +190,42 @@ void UserLogin::seleccionar_opcion(GestorVentanas& gestor){
   }
 
   switch(opc){
-    case 1:
-      UserLogin::validar_credenciales(gestor);
+    case 1: {
+      ifstream file_sanciones("sanciones.csv");
+      string linea_h;
+
+      UserLogin::historial_sanciones.clear();
+
+      while(getline(file_sanciones, linea_h)){
+        vector<int> history_sanciones;
+        string valor1;
+        stringstream ss3(linea_h);
+
+        while(getline(ss3, valor1, ',')){
+          history_sanciones.push_back(stoi(valor1));
+        }
+        UserLogin::historial_sanciones.push_back(history_sanciones);
+      }
+      file_sanciones.close();
+
+      for (int i = 0; i < UserLogin::historial_sanciones.size(); ++i) {
+        if(UserLogin::historial_sanciones[i][0] == stoi(gestor.codigo)){
+          UserLogin::sanciones = std::to_string(UserLogin::historial_sanciones[i][1]);
+          break;
+        }
+      }
+      if(stoi(UserLogin::sanciones)==3){
+        system("cls");
+        change_color(244);
+        gotoxy(45, 10);
+        cout<<"ESTAS BETADO DEL SISTEMA";
+        change_color(240);
+        getch();
+      }else{
+        UserLogin::validar_credenciales(gestor);
+      }
       break;
+    }
     case 0:
       gestor.cambiar_ventana(Ventanas::MAINWINDOW);
       break;
