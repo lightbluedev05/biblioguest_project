@@ -20,6 +20,7 @@ struct User {
 vector<User> users;
 string AdminVerificar::codigo_estudiante;
 string AdminVerificar::codigo_encontrado;
+char AdminVerificar::letra;
 int AdminVerificar::aux;
 
 void AdminVerificar::mostrar(GestorVentanas& gestor){
@@ -212,6 +213,7 @@ void AdminVerificar::opciones(GestorVentanas& gestor){
         cout<<"   Laptop  : "<<codigo_laptop;
         gotoxy(42, 19);
         cout<<"   Horario : "<<horario_laptop;
+        AdminVerificar::letra = 'B';
         AdminVerificar::confirmar(gestor);
       }else{
         change_color(244);
@@ -251,6 +253,7 @@ void AdminVerificar::opciones(GestorVentanas& gestor){
         cout<<"   Cubiculo : "<<codigo_cubiculo;
         gotoxy(42, 19);
         cout<<"   Horario  : "<<horario_cubiculo;
+        AdminVerificar::letra = 'A';
         AdminVerificar::confirmar(gestor);
         break;
       }else{
@@ -298,10 +301,45 @@ void AdminVerificar::confirmar(GestorVentanas& gestor){
     tecla = _getch();
   }
 
-  switch(opc){
-    case 0:
-      gestor.cambiar_ventana(Ventanas::ADMINMAIN);
-      break;
+  switch(opc) {
+      case 0: {
+          vector<vector<string>> data_ultimo;
+          string linea_ultimo;
+          ifstream fileultimo("reservas_data.csv");
+
+          while(getline(fileultimo, linea_ultimo)) {
+              vector<string> horariosultimo = {};
+              string horarioultimo = "";
+              stringstream ss(linea_ultimo);
+
+              while(getline(ss, horarioultimo, ',')) {
+                  horariosultimo.push_back(horarioultimo);
+              }
+              data_ultimo.push_back(horariosultimo);
+          }
+          fileultimo.close();
+
+          for (int i = 0; i < data_ultimo.size(); i++){
+              if (stoi(data_ultimo[i][2]) == stoi(AdminVerificar::codigo_estudiante)){
+                if(AdminVerificar::letra == data_ultimo[i][0][1]){
+                  data_ultimo.erase(data_ultimo.begin() + i);
+                  break;
+                }
+              }
+          }
+
+
+          ofstream file_ultimo("reservas_data.csv");
+          for(int t=0; t<data_ultimo.size(); t++){
+            file_ultimo << data_ultimo[t][0] << "," << data_ultimo[t][1] << "," << data_ultimo[t][2] << endl;
+          }
+
+          file_ultimo.close();
+          
+
+          gestor.cambiar_ventana(Ventanas::ADMINMAIN);
+          break;
+      }
     case 1:
       gestor.cambiar_ventana(Ventanas::ADMINMAIN);
       break;

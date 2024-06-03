@@ -12,6 +12,8 @@ class MainWindow {
     void seleccionar_ventana(GestorVentanas& gestor);
 
     void main(GestorVentanas& gestor);
+    void borrar(GestorVentanas& gestor);
+    void cargar_sanciones(GestorVentanas& gestor);
 };
 
 

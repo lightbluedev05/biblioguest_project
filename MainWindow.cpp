@@ -3,7 +3,14 @@
 #include "functions.h"
 #include <iostream>
 #include <conio.h>
-#include <stdlib.h>
+#include <cstdlib>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <set>
+#include <ctime>
 
 using namespace std;
 
@@ -108,7 +115,131 @@ void MainWindow::seleccionar_ventana(GestorVentanas& gestor){
 
 }
 
+void MainWindow::borrar(GestorVentanas& gestor){
+  vector<vector<string>> h_data;
+  string linea2;
+  ifstream file2("horarios_data.csv");
+
+  while(getline(file2, linea2)){
+    vector<string> horarios={};
+    string horario="";
+    stringstream ss(linea2);
+
+    while(getline(ss, horario, ',')){
+      horarios.push_back(horario);
+    }
+    h_data.push_back(horarios);
+  }
+  file2.close();
+
+  ofstream file3("horarios_data.csv");
+  for(int t=0; t<h_data.size(); t++){
+    file3<<h_data[t][0]<<",0,0,0,0,0,0"<<endl;
+  }
+  file3.close(); 
+}
+
+void MainWindow::cargar_sanciones(GestorVentanas& gestor){
+  time_t tiempoActual = time(NULL);
+  tm* tiempoLocal = localtime(&tiempoActual);
+  int horaActual = tiempoLocal->tm_hour;
+  int minActual = tiempoLocal->tm_min;
+  int horaInicio, horaFin;
+
+  vector<vector<string>> data;
+  string linea;
+  ifstream file("reservas_data.csv");
+
+  while(getline(file, linea)){
+    vector<string> horarios={};
+    string horario="";
+    stringstream ss(linea);
+
+    while(getline(ss, horario, ',')){
+      horarios.push_back(horario);
+    }
+    data.push_back(horarios);
+  }
+  file.close();
+
+
+  vector<vector<int>> historial_sanciones;
+  string linea_h;
+  ifstream file_sanciones("sanciones.csv");
+
+  while(getline(file_sanciones, linea_h)){
+    vector<int> history_sanciones;
+    string valor1;
+    stringstream ss3(linea_h);
+
+    while(getline(ss3, valor1, ',')){
+      history_sanciones.push_back(stoi(valor1));
+    }
+    historial_sanciones.push_back(history_sanciones);
+  }
+  file_sanciones.close();
+
+
+  for (int t = 0; t < historial_sanciones.size(); t++) {
+      int codigo = historial_sanciones[t][0]; //codigo = 23200338
+      for (auto it = data.begin(); it != data.end(); ) {
+          if ((*it)[2] == to_string(codigo)) { // data[i][2]=23200338
+              int aux = stoi((*it)[1]); // data[i][1] es el horario
+
+              int horaFin;
+              switch (aux) {
+                  case 1:
+                      horaFin = 10;
+                      break;
+                  case 2:
+                      horaFin = 12;
+                      break;
+                  case 3:
+                      horaFin = 14;
+                      break;
+                  case 4:
+                      horaFin = 16;
+                      break;
+                  case 5:
+                      horaFin = 18;
+                      break;
+                  case 6:
+                      horaFin = 20;
+                      break;
+              }
+
+              if (horaActual >= horaFin && minActual >= 0) {
+                  historial_sanciones[t][1]++;
+                  it = data.erase(it); // Eliminar y avanzar el iterador
+              } else {
+                  ++it; // Solo avanzar el iterador
+              }
+          } else {
+              ++it; // Solo avanzar el iterador
+          }
+      }
+  }
+
+
+  ofstream file21("sanciones.csv");
+  for(int t=0; t<historial_sanciones.size(); t++){
+    file21<<historial_sanciones[t][0]<<","<<historial_sanciones[t][1]<<endl;
+  }
+  file21.close();
+
+  ofstream file31("reservas_data.csv");
+  for(int t=0; t<data.size(); t++){
+    file31<<data[t][0]<<","<<data[t][1]<<","<<data[t][2]<<endl;
+  }
+  file31.close();
+
+
+  if(horaActual>=20 || horaActual<=8){
+    borrar(gestor);
+  }
+}
 void MainWindow::main(GestorVentanas& gestor){
+  MainWindow::cargar_sanciones(gestor);
   MainWindow::mostrar();
   MainWindow::seleccionar_ventana(gestor);
 }

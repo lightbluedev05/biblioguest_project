@@ -9,6 +9,7 @@ class GestorVentanas;
 class AdminVerificar{
   public:
 
+    static char letra;
     static int aux;
     static std::string codigo_encontrado;
     static std::string codigo_estudiante;
