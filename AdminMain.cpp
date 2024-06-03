@@ -244,7 +244,7 @@ void AdminMain::sanciones(GestorVentanas& gestor){
 
     rectangle(15, 1, 43, 22);
     gotoxy(46,23);
-    cout << "CONFIRMAR";
+    cout << "RESETEAR";
 
     rectangle(15, 1, 63, 22);
     gotoxy(68,23);
@@ -319,7 +319,7 @@ void AdminMain::confirmar(GestorVentanas& gestor){
         change_color(241);
         rectangle(15, 1, 43, 22);
         gotoxy(46,23);
-        cout << "CONFIRMAR";
+        cout << "RESETEAR";
         change_color(240);
 
         rectangle(15, 1, 63, 22);
@@ -336,7 +336,7 @@ void AdminMain::confirmar(GestorVentanas& gestor){
         change_color(241);
         rectangle(15, 1, 63, 22);
         gotoxy(68,23);
-        cout << "ATRAS";
+        cout << "RESETEAR";
         change_color(240);
 				
 				opc=1;
@@ -345,7 +345,7 @@ void AdminMain::confirmar(GestorVentanas& gestor){
     tecla = _getch();
   }
 
-  switch(opc) {
+   switch(opc) {
       case 0: {
         for (int i = 0; i < UserMain::historial_sanciones.size(); i++){
           if (std::to_string(UserMain::historial_sanciones[i][0]) == AdminMain::codigo_estudiante) {
