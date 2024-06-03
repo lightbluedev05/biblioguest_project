@@ -14,9 +14,34 @@ using namespace std;
 
 string UserMain::horario_laptop;
 string UserMain::horario_cubiculo;
+string UserMain::sanciones;
 vector<vector<int>> UserMain::historial;
+vector<vector<int>> UserMain::historial_sanciones;
 
 void UserMain::mostrar(GestorVentanas& gestor){
+  ifstream file_sanciones("sanciones.csv");
+  string linea_h;
+
+  UserMain::historial_sanciones.clear();
+
+  while(getline(file_sanciones, linea_h)){
+    vector<int> history_sanciones;
+    string valor1;
+    stringstream ss3(linea_h);
+
+    while(getline(ss3, valor1, ',')){
+      history_sanciones.push_back(stoi(valor1));
+    }
+    UserMain::historial_sanciones.push_back(history_sanciones);
+  }
+  file_sanciones.close();
+
+  for (int i = 0; i < UserMain::historial_sanciones.size(); ++i) {
+    if(UserMain::historial_sanciones[i][0] == stoi(gestor.codigo)){
+      UserMain::sanciones = std::to_string(UserMain::historial_sanciones[i][1]);
+      break;
+    }
+  }
   change_color(112);
   system("cls");
   hide_cursor();
@@ -27,6 +52,8 @@ void UserMain::mostrar(GestorVentanas& gestor){
   change_color(244);
   gotoxy(53, 3);
   cout<<"MENU DE USUARIO";
+  gotoxy(80, 3);
+  cout<<UserMain::sanciones<<"/3";
 
   change_color(240);
   gotoxy(36, 4);
@@ -158,7 +185,7 @@ void UserMain::mostrar_reservas(GestorVentanas& gestor){
   
   getch();
 }
-
+//a
 void UserMain::cancelar_reserva(GestorVentanas& gestor){
   //* CONSEGUIR DATA DE RESERVAS
   vector<vector<string>> data;

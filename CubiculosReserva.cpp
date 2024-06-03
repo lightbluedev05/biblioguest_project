@@ -289,7 +289,7 @@ void CubiculosReserva::comprobacion_de_datos(GestorVentanas& gestor){
     // Definir los horarios límite
     int horaInicio, horaFin;
 
-    // Establecer los horarios límite según el horario seleccionado
+    // Establecer los horarios límite según el horario seleccionadoa
     switch (stoi(CubiculosReserva::horario_cubiculo)) {
         case 1:
             horaFin = 10;
